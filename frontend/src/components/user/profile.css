@@ -1,0 +1,589 @@
+.profile-page-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8rem;
+  color: whitesmoke;
+  width: 100%;
+  background-color: #0c1110;
+  padding: 1.5rem 5rem;
+}
+
+.user-profile-section {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-inline: 6%;
+}
+
+.user-repo-section {
+  margin: 0px auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.user-name {
+  margin: 10px 20px 10px 10px;
+}
+
+.profile-image {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background-color: rgba(128, 128, 128, 0.346);
+}
+
+.profile-image img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+
+.acct-handle-btns {
+  position: absolute;
+  right: 0.3rem;
+  top: 0.6rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+}
+
+.acct-handle-btns svg path {
+  fill: whitesmoke;
+}
+
+.acct-handle-btns .dropdown-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  width: 20px;
+  padding: 0;
+  border-radius: 8px;
+}
+
+.acct-handle-btns .dropdown-toggle::after {
+  display: none;
+}
+
+.acct-handle-btns .dropdown-menu {
+  background-color: #0c1110;
+  border: 1px solid #20272d;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+.acct-handle-btns .dropdown-menu li button {
+  width: 100%;
+}
+
+.acct-handle-btns .edit-btn,
+.del-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  text-align: start;
+  color: #888888;
+  border: none;
+  border-radius: 8px;
+  font-size: small;
+}
+
+.acct-handle-btns .edit-btn svg path,
+.acct-handle-btns .del-btn svg path {
+  fill: #888888;
+}
+
+.acct-handle-btns .edit-btn:hover {
+  background-color: rgba(128, 128, 128, 0.184);
+  color: whitesmoke;
+}
+.acct-handle-btns .edit-btn:hover svg path {
+  fill: whitesmoke;
+}
+
+.acct-handle-btns .del-btn:hover {
+  background-color: rgba(224, 36, 36, 0.947);
+  color: whitesmoke;
+}
+
+.acct-handle-btns .del-btn:hover svg path {
+  fill: whitesmoke;
+}
+
+.img-thumbnail {
+  border: none;
+  background-color: #0c1110;
+  height: 100px !important;
+  width: 100px !important;
+  border-radius: 0 !important;
+  padding: 0;
+}
+
+.underlineNavComponent {
+  padding-inline: 2rem !important;
+  background-color: #0c1110;
+  padding-block: 0;
+  border-bottom: 0.8px solid rgba(128, 128, 128, 0.785);
+}
+
+.follow-btn {
+  background-color: #20272d;
+  width: 100%;
+  margin: 10px auto;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  color: whitesmoke;
+  font-weight: 500;
+}
+
+.follow-btn:hover {
+  cursor: pointer;
+  border: 1px solid #80808073;
+}
+
+.follower {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: fit-content;
+  gap: 10px;
+  font-size: small;
+  font-weight: 500;
+}
+
+.follower p {
+  margin-bottom: 0;
+}
+
+.repo-card-wrapper {
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 40px 20px;
+}
+
+.repo {
+  border: 0.5px solid grey;
+  border-radius: 10px;
+  width: 400px;
+  height: 210px;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.repo-name {
+  cursor: pointer;
+  color: #408ced;
+  font-size: 20px;
+}
+
+.description {
+  color: grey;
+  font-size: 15px;
+}
+
+.heat-map-section {
+  width: 60%;
+  height: stretch;
+  display: flex;
+  align-items: center;
+}
+
+.reposContainer {
+  background-color: #0c1110;
+  padding-inline: 5rem;
+  margin-bottom: 1.5rem;
+}
+
+.reposContainer .norepo {
+  color: white;
+  text-align: center;
+}
+
+.reposContainer .repotag {
+  color: white;
+  font-size: 19px;
+  margin-bottom: 2rem;
+}
+
+.reposContainer .repos .col {
+  border: 0.8px solid #20272d;
+  padding: 10px 13px;
+  color: rgba(245, 245, 245, 0.914);
+  border-radius: 12px;
+}
+
+.reposContainer .repos .col a {
+  text-decoration: none;
+  font-weight: 500;
+  color: #5b8dee !important;
+}
+
+.reposContainer .repos .col a:hover {
+  text-decoration: underline;
+  text-decoration-color: #5b8dee88;
+}
+
+.reposContainer .repos .col .badge {
+  background-color: #0c1110 !important;
+  border: 1px solid #6c757d;
+  padding: 2px 5px;
+  font-size: 9px;
+  font-weight: 400;
+  margin-bottom: 2px;
+}
+
+.reposContainer .repos .col .text-bg-success {
+  background-color: #019f01 !important;
+  border: none;
+}
+.reposContainer .repos .col .text-bg-warning {
+  background-color: #ffc107 !important;
+  border: none;
+}
+
+#issue-link {
+  border-bottom: 0.8px solid gray;
+}
+
+#issue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #8080802f;
+  padding: 0.5rem 0.8rem;
+  border-bottom: 0.8px solid #20272d;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+
+#issue-header .btns {
+  display: flex;
+  gap: 0.3rem;
+}
+
+#issue-header button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 25px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: gray;
+  background-color: #0c1110;
+  border: 1px solid gray;
+}
+
+#issue-header button .icon-path {
+  fill: gray !important;
+}
+
+#issue-header button:hover {
+  background-color: #6c757d58;
+  color: whitesmoke;
+}
+
+#issue-header button:hover .icon-path {
+  fill: whitesmoke !important;
+}
+
+.reposContainer .issue-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 12px;
+  opacity: 0.8;
+  padding: 1rem;
+}
+
+.reposContainer .issue-content .issue-view-btn {
+  width: fit-content;
+  padding-inline: 0.8rem;
+  padding-block: 0.1rem;
+  border-radius: 6px;
+  background-color: inherit;
+  border: 1px solid gray;
+  color: gray;
+  font-size: 11px;
+  font-weight: 500;
+}
+.reposContainer .issue-content .issue-view-btn:hover {
+  background-color: rgba(128, 128, 128, 0.184);
+  color: whitesmoke;
+}
+
+.reposContainer .repos .col p {
+  opacity: 0.8;
+}
+
+.reposContainer .repos div p {
+  margin-bottom: 0;
+  font-size: 12px;
+}
+
+.reposContainer .repos div h4 {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.reposContainer .no-issue-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.reposContainer .no-issue-container img {
+  width: 250px;
+}
+
+.reposContainer .no-issue-container p {
+  color: whitesmoke;
+  line-height: 1;
+  font-size: 14px;
+}
+
+.reposContainer .no-issue-container button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  width: 50%;
+  max-width: 160px;
+  background-color: #019f01;
+  border: none;
+  border-radius: 8px;
+  color: whitesmoke;
+  font-size: 14px;
+  padding: 5px 12px 5px 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.reposContainer .no-issue-container button:hover {
+  background-color: #018d01;
+}
+
+.reposContainer .no-issue-container button .icon-path {
+  fill: whitesmoke;
+}
+
+.reposContainer .no-issue-container button svg {
+  margin-bottom: -3px;
+}
+.sr-only {
+  display: none;
+}
+
+.modal-footer button {
+  font-size: 12px;
+  width: 85px;
+  height: 28px;
+}
+
+.modal-footer #cancel-btn {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: 500;
+  color: gray;
+  background-color: #0c1110;
+  border: 1px solid gray;
+}
+
+.modal-footer #cancel-btn:hover {
+  background-color: rgba(128, 128, 128, 0.184);
+  color: whitesmoke;
+}
+
+.user-profile-section .right-element .name2 {
+  display: none;
+}
+
+#staticBackdrop2 .submit-btn,
+#confirmationModal .submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #019f01;
+  border: none;
+  border-radius: 8px;
+  color: whitesmoke;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+#confirmationModal .submit-btn:hover,
+#staticBackdrop2 .submit-btn:hover {
+  background-color: #018d01;
+}
+
+#DeleteCheck .del-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff0000;
+  color: whitesmoke;
+  border: none;
+}
+#DeleteCheck .del-btn:hover {
+  background-color: #e00000;
+}
+
+@media (max-width: 980px) {
+  .profile-page-wrapper,
+  .underlineNavComponent {
+    padding-inline: 1rem !important;
+  }
+  .reposContainer {
+    padding-inline: 2rem;
+  }
+  .profile-image {
+    width: 115px;
+    height: 115px;
+  }
+  .profile-image .user-profile-section {
+    padding-inline: 8%;
+  }
+  .profile-image .edit-btn {
+    right: 9px;
+    top: 9px;
+  }
+  .user-profile-section .name h3 {
+    font-size: 18px;
+  }
+  .follow-btn {
+    height: 35px;
+    font-size: small;
+  }
+  .follower {
+    font-size: 11px;
+    height: fit-content;
+  }
+  .follower p {
+    text-align: center;
+    line-height: 1.3;
+    margin-bottom: 0;
+  }
+  #issue-header .btns button .issue-btn-text {
+    display: none;
+  }
+  #issue-header button {
+    width: fit-content;
+    padding-inline: 6px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .repo {
+    width: 100%;
+  }
+  .profile-page-wrapper {
+    gap: 0;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .user-profile-section {
+    margin: auto;
+  }
+}
+
+@media (max-width: 550px) {
+  .profile-page-wrapper {
+    flex-direction: column;
+    gap: 1rem;
+    padding-inline: 1.5rem;
+  }
+  .user-profile-section .name h3 {
+    display: none;
+  }
+  .user-profile-section .right-element .name2 {
+    display: flex;
+    font-size: 18px;
+  }
+  .user-profile-section .right-element .name2 h3 {
+    font-size: 18px;
+  }
+  .profile-image .edit-btn {
+    top: 3px;
+    right: 3px;
+  }
+  .heat-map-section {
+    width: 100%;
+  }
+  .user-profile-section {
+    flex-direction: row;
+    justify-content: start;
+    gap: 2rem;
+    align-items: center;
+    margin-inline: 0;
+    padding-inline: 5%;
+    width: 100%;
+    gap: 3rem;
+  }
+  .user-profile-section .right-element {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+  }
+  .user-profile-section .profile-image {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 3px;
+  }
+  .follower {
+    gap: 3rem;
+  }
+  .follower p {
+    text-align: start;
+    width: 50px;
+  }
+  .HeatMapWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .HeatMapWrapper h4 {
+    width: 100%;
+    font-size: 19px;
+    padding-left: 1rem;
+  }
+  .acct-handle-btns {
+    right: 0rem;
+    top: 0.35rem;
+    height: 16px;
+    width: 16px;
+  }
+}
+
+@media (max-width: 450px) {
+  .reposContainer .repos .col p {
+    opacity: 0.8;
+    max-width: 327px;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 328px) {
+  .underlineNavComponent ul:nth-child(2) ul {
+    background-color: #0c1110 !important;
+  }
+}

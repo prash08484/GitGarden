@@ -1,0 +1,131 @@
+nav {
+  display: flex;
+  padding: 1rem 2rem;
+  color: #f1f6fd;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.8px solid rgba(255, 255, 255, 0.781);
+  background-color: #0c1110;
+}
+
+nav img {
+  height: 23px;
+  border-radius: 100%;
+}
+nav div {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 2rem;
+}
+
+nav h3 {
+  color: #f1f6fd;
+  margin-bottom: 0;
+  font-size: 22px;
+}
+
+nav p {
+  font-size: 13px;
+  font-weight: bold;
+  color: #f1f6fd;
+  margin-bottom: 3px;
+}
+
+nav .navbar-link {
+  text-decoration: none;
+}
+
+nav .create-repo-btn {
+  padding: 4px 13px;
+  background-color: rgb(1, 159, 1);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+nav .create-repo-btn:active {
+  background-color: green;
+}
+nav .create-repo-btn:hover {
+  background-color: green;
+}
+
+nav .profile-btn {
+  width: 28px;
+  height: 28px;
+  background-color: #863bcb;
+  border: none;
+  border-radius: 50%;
+  color: #f1f2fd;
+  cursor: pointer;
+}
+
+nav .profile-btn svg {
+  vertical-align: inherit;
+}
+
+.dropdown .dropdown-menu {
+  background: #0c1110;
+  padding: 6px;
+  border: 1.5px solid #20272d;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.dropdown-menu .dropdown-item {
+  font-size: small;
+  color: #888888;
+  border-radius: 6px;
+  padding: 4px 15px 4px 6px;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  text-align: start;
+}
+
+.dropdown-menu .dropdown-item svg path {
+  fill: #888888;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  color: whitesmoke;
+  background-color: rgba(128, 128, 128, 0.184);
+}
+.dropdown-menu .logout-btn:hover {
+  background-color: rgba(224, 36, 36, 0.947);
+  color: whitesmoke;
+}
+
+.dropdown-menu .dropdown-item:hover svg path {
+  fill: whitesmoke;
+}
+
+nav .profile-btn:hover {
+  background-color: blueviolet;
+}
+
+.profile-btn.dropdown-toggle::after {
+  display: none !important;
+}
+
+@media (max-width: 980px) {
+  nav {
+    padding-inline: 1rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .nav-create-line {
+    display: none;
+  }
+  nav div {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 430px) {
+  .dashboard main {
+    padding: 2rem 1.5rem 1.5rem;
+  }
+}

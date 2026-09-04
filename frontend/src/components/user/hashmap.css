@@ -1,0 +1,10 @@
+.HeatMapWrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.HeatMapProfile {
+  display: inline-block;
+  color: whitesmoke !important;
+}

@@ -1,0 +1,97 @@
+.createRepoForm {
+  padding-top: 3rem;
+  width: 100%;
+  max-width: 850px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-inline: auto;
+  gap: 1rem;
+  color: whitesmoke;
+  padding-bottom: 1rem;
+  background-color: #0c1110;
+}
+
+.createRepoForm label,
+.createRepoForm p,
+.createRepoForm i,
+.createRepoForm span {
+  font-size: 14px;
+}
+
+.createRepoForm span {
+  margin-top: -1px;
+}
+
+.createRepoForm label,
+.createRepoForm p {
+  font-weight: 500;
+}
+
+.createRepoForm textarea,
+.createRepoForm input {
+  margin-top: 0.5rem;
+  font-size: 13px;
+  background-color: black;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem;
+  color: whitesmoke;
+}
+
+.createRepoForm .firstInput {
+  width: 100%;
+}
+
+.line {
+  border: none;
+  height: 1px;
+  background: #1b232f;
+}
+
+.visibilityLabel {
+  font-size: 17px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.visibilityLabel input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  margin-top: 0;
+  width: 8px !important;
+  height: 8px !important;
+  border: 1px solid rgba(245, 245, 245, 0.171);
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.visibilityLabel input[type="radio"]:checked {
+  background-color: rgb(1, 177, 1); /* ✅ turns green when checked */
+  border-color: rgb(1, 87, 1);
+}
+
+.submit-btn {
+  background-color: #238636;
+  border: none;
+  width: 250px;
+  border-radius: 5px;
+  height: 35px;
+  color: #f1f6fd;
+  font-weight: 700;
+  padding: 0 1rem;
+}
+
+@media (max-width: 980px) {
+  .createRepoForm {
+    padding-inline: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .submit-btn {
+    width: 100%;
+  }
+}

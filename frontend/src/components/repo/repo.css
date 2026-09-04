@@ -1,0 +1,443 @@
+.repo-div {
+  color: whitesmoke;
+  padding-inline: 11rem;
+}
+
+.repo-div span {
+  display: flex;
+  align-items: top;
+  gap: 0.6rem;
+  height: fit-content;
+}
+
+.repo-div span h4 {
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+
+.repo-div span .badge {
+  background-color: #0c1110 !important;
+  border: 1px solid #808080;
+  color: gray !important;
+  font-weight: 400;
+  border-radius: 20px;
+  padding: 3px 8px;
+  margin-top: 4px;
+}
+
+.heading-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 2rem 0.3rem;
+}
+
+.heading-div #userProfileLink {
+  margin-top: -8px;
+  text-decoration: none;
+}
+
+.heading-div #userProfileLink:hover {
+  color: #0d6efd !important;
+  text-decoration: underline;
+  text-decoration-color: #0d6efd;
+}
+
+#editFileBtn p,
+.heading-btns button p {
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+.heading-btns {
+  display: flex;
+  gap: 0.4rem;
+}
+
+#staticBackdrop .modal-footer {
+  display: flex !important;
+  align-items: center;
+  justify-content: end;
+  gap: 0.6rem;
+}
+
+#staticBackdrop2 .modal-body .edit-repo-form,
+#staticBackdrop3 .modal-body .edit-repo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#staticBackdrop2 .modal-body .edit-repo-form div,
+#staticBackdrop3 .modal-body .edit-repo-form div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+#staticBackdrop2 .modal-body .edit-repo-form .modal-footer {
+  display: flex !important;
+}
+
+#staticBackdrop2 .modal-body .edit-repo-form div label,
+#staticBackdrop3 .modal-body .edit-repo-form div label {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+#staticBackdrop .modal-footer button,
+#staticBackdrop2 .modal-body .edit-repo-form .modal-footer button,
+#staticBackdrop3 .modal-body .modal-footer button {
+  height: 28px !important;
+  width: 85px !important;
+}
+
+#staticBackdrop2 .modal-body .edit-repo-form div input,
+#staticBackdrop2 .modal-body .edit-repo-form div textarea,
+#staticBackdrop3 .modal-body .edit-repo-form div input,
+#staticBackdrop3 .modal-body .edit-repo-form div textarea {
+  background-color: black;
+  border: none;
+  padding: 8px 10px;
+  color: whitesmoke;
+  font-size: 12px;
+  border-radius: 8px;
+}
+
+#staticBackdrop2 .modal-body .edit-repo-form .visibilityLabel {
+  font-size: 13px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+#staticBackdrop2
+  .modal-body
+  .edit-repo-form
+  .visibilityLabel
+  div
+  p:nth-child(2) {
+  margin-top: -3px;
+  font-size: 10px;
+  color: #808080;
+}
+
+#staticBackdrop2
+  .modal-body
+  .edit-repo-form
+  .visibilityLabel
+  input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  margin-top: 0;
+  width: 21px !important;
+  height: 20px !important;
+  border: 1px solid rgba(245, 245, 245, 0.171);
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+#staticBackdrop2
+  .modal-body
+  .edit-repo-form
+  .visibilityLabel
+  input[type="radio"]:checked {
+  background-color: rgb(1, 177, 1);
+  border-color: rgb(1, 87, 1);
+}
+
+.repo-files-div .repo-files .branch {
+  display: flex !important;
+  width: 100%;
+}
+
+.heading-btns button,
+.repo-files-div .repo-files .branch button,
+#editFileBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 85px;
+  height: 28px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: gray;
+  background-color: #0c1110;
+  border: 1px solid gray;
+}
+
+.repo-files-div .repo-files .branch button {
+  width: 110px !important;
+  height: 35px !important;
+  gap: 0.3rem !important;
+}
+
+.branch button p,
+.branch p {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.branch p {
+  font-size: 12px;
+}
+
+#editFileBtn:hover,
+.heading-btns button:hover,
+.repo-files-div .repo-files .branch button:hover {
+  background-color: rgba(128, 128, 128, 0.184);
+  color: whitesmoke;
+}
+
+#editFileBtn:hover #editFileBtn p svg path,
+.heading-btns button:hover .heading-btns button svg path {
+  color: whitesmoke !important;
+}
+
+#editFileBtn .icon-path,
+.heading-btns button .icon-path,
+.repo-files-div .repo-files .branch .icon-path {
+  fill: #808080;
+}
+
+#editFileBtn:hover .icon-path,
+.heading-btns button:hover .icon-path {
+  fill: whitesmoke;
+}
+
+.repo-files-div .repo-files .branch button:hover .icon-path {
+  fill: whitesmoke;
+}
+
+.repo-files-div .repo-files .branch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.repo-files-div .repo-files .branch .left {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1.5rem;
+  color: #808080;
+  font-weight: 500;
+}
+
+.repo-files-div {
+  display: flex;
+  justify-content: space-between;
+  gap: 2.3rem;
+}
+
+.repo-files-div .repo-files {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 75%;
+}
+
+.repo-files-div .about {
+  width: 25%;
+}
+
+.repo-files .files {
+  border: 1px solid #80808073;
+  border-radius: 8px;
+  background-color: #0c1110;
+  height: 400px;
+}
+
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+  border-color: #80808073;
+}
+
+tr {
+  display: flex !important;
+}
+
+td,
+th {
+  background-color: #0c1110 !important;
+  width: 34% !important;
+}
+tbody tr:hover td,
+tbody tr:hover th {
+  background-color: #8080802f !important;
+  cursor: pointer;
+}
+
+tbody {
+  font-size: 13px;
+}
+
+th {
+  width: 30%;
+  padding-left: 1.5rem !important;
+  font-weight: 500;
+  color: #f5f5f5 !important;
+}
+
+td {
+  padding-top: 10px !important;
+  padding-right: 1.5rem !important;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #808080 !important;
+  text-align: right !important;
+}
+
+.repo-files-div .noDataImg {
+  width: 300px;
+}
+
+.repo-files .files .files-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1.4rem;
+  border-bottom: 1px solid #80808073;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  background-color: rgba(128, 128, 128, 0.185);
+}
+
+.repo-files .files .files-heading .right p {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.repo-files .files .files-heading .left p {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.repo-files-div .about {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.repo-files-div .about:nth-child(2) div p {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#fileBtn {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 6px;
+}
+
+#fileBtn:hover {
+  color: rgb(15, 15, 238);
+  text-decoration: underline;
+  text-decoration-color: rgb(15, 15, 238);
+}
+
+#editFileModal .modal-footer button {
+  height: 28px !important;
+  width: 85px;
+  align-content: center;
+  padding: unset;
+}
+
+#editFileModal .modal-footer .cancel {
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: gray;
+  background-color: #0c1110;
+  border: 1px solid gray;
+}
+
+#editFileModal .modal-footer .cancel:hover {
+  background-color: rgba(128, 128, 128, 0.184);
+  color: whitesmoke;
+}
+
+@media (max-width: 1280px) {
+  .repo-div {
+    padding-inline: 3rem;
+  }
+}
+
+@media (max-width: 980px) {
+  .repo-div {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (max-width: 850px) {
+  .repo-files-div {
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  .repo-files-div .repo-files,
+  .repo-files-div .about {
+    width: 100% !important;
+  }
+
+  #editFileBtn span,
+  .heading-btns span {
+    display: none;
+  }
+
+  #editFileBtn,
+  .heading-btns button {
+    width: 24px;
+    height: 24px;
+    padding-inline: 7px;
+  }
+
+  .repo-files-div .repo-files .branch .left {
+    gap: 0.7rem;
+  }
+
+  .repo-files-div .repo-files .branch button {
+    width: fit-content !important;
+    padding-inline: 8px;
+  }
+
+  .repo-files-div .repo-files .branch .left .dropdown-toggle svg {
+    display: none;
+  }
+  .repo-files .files .files-heading {
+    padding-inline: 1rem;
+  }
+  th {
+    padding-left: 1rem !important;
+  }
+  td {
+    padding-right: 1rem !important;
+  }
+}
+
+@media (max-width: 470px) {
+  .repo-div span {
+    gap: 4px;
+  }
+  th {
+    padding-left: 0.5rem !important;
+  }
+  td {
+    padding-right: 0.5rem !important;
+  }
+}
