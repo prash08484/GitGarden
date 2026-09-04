@@ -3,8 +3,7 @@ import mongoose from 'mongoose';
 const RepositorySchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     description: {
         type: String,
@@ -30,6 +29,8 @@ const RepositorySchema = new mongoose.Schema({
         }
     ]
 }, { timestamps: true });
+
+RepositorySchema.index({ owner: 1, name: 1 }, { unique: true });
 
 const Repository = mongoose.model('Repository', RepositorySchema);
 export default Repository;

@@ -19,27 +19,18 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    repositories: [
-        {
-            default: [],
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Repository"
-        }
-    ],
-    followedUsers: [
-        {
-            default: [],
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
-        }
-    ],
-    starRepositories: [
-        {
-            default: [],
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Repository",
-        }
-    ],
+    repositories: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Repository"
+    }],
+    followedUsers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }],
+    starRepositories: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Repository",
+    }],
 }, { timestamps: true });
 
 const User = mongoose.model('User', UserSchema);
