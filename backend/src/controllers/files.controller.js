@@ -1,6 +1,6 @@
-import { buildRepoFileKey, InvalidPathError } from "../utils/s3Key.js";
+import { buildRepoFileKey, assertKeyBelongsToRepo, InvalidPathError } from "../utils/s3Key.js";
 import { s3, S3_BUCKET } from "../config/aws-config.js";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'; 
 
 export const fetchRepoFiles = async (repositoryId) => {
   const prefix = `repositories/${repositoryId}/`;
@@ -54,29 +54,52 @@ export const fetchRepoFileContent = async (req, res) => {
 
 export const updateRepoFileContent = async (req, res) => {
   try {
-
-    const { id: repositoryId } = req.params; // was: const { repositoryId } = req.params;
+    const { id: repositoryId } = req.params;
     const { path: relativePath, content, commitName } = req.body;
 
-    const key = buildRepoFileKey(repositoryId, relativePath);
-    const commitKey = `repositories/${repositoryId}/commit.json`;
+    const key = buildRepoFileKey(repositoryId, relativePath); // throws on bad path
+    assertKeyBelongsToRepo(key, repositoryId);                // defense-in-depth: file really belongs to this repo
 
-    const commitFile = await s3.getObject({ Bucket: S3_BUCKET, Key: commitKey }).promise();
-    const commitData = JSON.parse(commitFile.Body.toString("utf-8"));
+    // Write the actual file content FIRST — this is the artifact that matters.
+    await s3.putObject({
+      Bucket: S3_BUCKET,
+      Key: key,
+      Body: content,
+      ContentType: "text/plain",
+    }).promise();
+
+    // Only record commit metadata once the write above has actually succeeded,
+    // so the commit log never claims a change that didn't happen.
+    const commitKey = `repositories/${repositoryId}/commit.json`;
+    let commitData = [];
+    try {
+      const commitFile = await s3.getObject({ Bucket: S3_BUCKET, Key: commitKey }).promise();
+      commitData = JSON.parse(commitFile.Body.toString("utf-8"));
+    } catch (err) {
+      if (err.code !== "NoSuchKey") throw err; // real S3 error, don't swallow it
+      // no commit.json yet for this repo — start a fresh history instead of 500ing
+    }
+
     commitData.push({
       id: uuidv4(),
       operation: "push",
       message: commitName,
       updatedAt: new Date().toISOString(),
+      updatedBy: req.user._id, // authenticated user, never trusted from the body
       OperationFiles: [relativePath],
     });
-    await s3.putObject({ Bucket: S3_BUCKET, Key: commitKey, Body: JSON.stringify(commitData), ContentType: "application/json" }).promise();
-    await s3.putObject({ Bucket: S3_BUCKET, Key: key, Body: content, ContentType: "text/plain" }).promise();
+
+    await s3.putObject({
+      Bucket: S3_BUCKET,
+      Key: commitKey,
+      Body: JSON.stringify(commitData),
+      ContentType: "application/json",
+    }).promise();
 
     res.json({ message: "File updated successfully" });
   } catch (err) {
     if (err instanceof InvalidPathError) return res.status(400).json({ error: err.message });
-    console.error(err);
-    res.status(500).send("Error updating file");
+    console.error("Error updating file:", err);
+    res.status(500).json({ error: "Error updating file" });
   }
 };
