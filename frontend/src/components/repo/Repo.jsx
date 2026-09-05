@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 import Navbar from '../Navbar';
 import './repo.css'
 const url = import.meta.env.VITE_BASE_URI;
+import { authHeaders } from "../utils/api";
 
 function Repo() {
     const { id } = useParams();
@@ -37,14 +38,21 @@ function Repo() {
 
 
     const handleFileClick = async (file) => {
+
         setSelectedFile(file.fileName);
+
         const content = await fetch(`${url}/file/content`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: authHeaders(),
             body: JSON.stringify({ key: file.key })
         });
+        // const content = await fetch(`${url}/file/content`, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify({ key: file.key })
+        // });
 
         const data = await content.json();
         setFileContent(data.content);
@@ -164,7 +172,13 @@ function Repo() {
 
     const deleteRepo = async (repoId) => {
         try {
-            const result = await fetch(`${url}/repo/delete/${repoId}`, { method: "DELETE" });
+            // const result = await fetch(`${url}/repo/delete/${repoId}`, 
+            //     { method: "DELETE" });
+
+            const result = await fetch(`${url}/repo/delete/${repoId}`, {
+                method: "DELETE",
+                headers: authHeaders(),
+            });
 
             if (result.status == 200) {
                 toast.success("repo deleted successfully");
@@ -180,9 +194,14 @@ function Repo() {
     const saveChanges = async (e) => {
         e.preventDefault();
         try {
+            // const result = await fetch(`${url}/repo/update/${id}`, {
+            //     method: "PUT",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify(formValues),
+            // });
             const result = await fetch(`${url}/repo/update/${id}`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
+                headers: authHeaders(),
                 body: JSON.stringify(formValues),
             });
 
@@ -203,21 +222,37 @@ function Repo() {
 
     const handleStaring = async (repoid) => {
         if (!isStared) {
+
+            // const result = await fetch(`${url}/user/starRepo/${repoid}`, {
+            //     method: "PUT",
+            //     body: JSON.stringify({ userId: currUser }),
+            //     headers: { "Content-Type": "application/json" }
+            // });
+
             const result = await fetch(`${url}/user/starRepo/${repoid}`, {
                 method: "PUT",
                 body: JSON.stringify({ userId: currUser }),
-                headers: { "Content-Type": "application/json" }
+                headers: authHeaders(),
             });
+
             if (result.status == 200) {
                 setIsStared(true);
                 toast.success("repository is stared!");
             }
         } else {
+
             const result = await fetch(`${url}/user/unstarRepo/${repoid}`, {
                 method: "PUT",
                 body: JSON.stringify({ userId: currUser }),
-                headers: { "Content-Type": "application/json" }
+                headers: authHeaders(),
             });
+
+            // const result = await fetch(`${url}/user/unstarRepo/${repoid}`, {
+            //     method: "PUT",
+            //     body: JSON.stringify({ userId: currUser }),
+            //     headers: { "Content-Type": "application/json" }
+            // });
+
             if (result.status == 200) {
                 setIsStared(false);
                 toast.success("repository is unstared!");
@@ -231,11 +266,16 @@ function Repo() {
 
             const data = await fetch(`${url}/issue/createIssue/${id}`, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: authHeaders(),
                 body: JSON.stringify(issueValues),
             });
+            // const data = await fetch(`${url}/issue/createIssue/${id}`, {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify(issueValues),
+            // });
 
             if (data.status == 201) {
                 toast.success("issue created!");

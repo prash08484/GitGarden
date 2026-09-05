@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import { UploadButton } from "../utils/uploadthingClient.js";
 import "./profile.css";
 const url = import.meta.env.VITE_BASE_URI;
+import { authHeaders } from "../utils/api";
 
 
 function Profile({ Pagetype = "none" }) {
@@ -135,7 +136,7 @@ function Profile({ Pagetype = "none" }) {
     try {
       const res = await fetch(`${url}/issue/${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: authHeaders(),
         body: JSON.stringify({ status }),
       });
 
@@ -175,7 +176,7 @@ function Profile({ Pagetype = "none" }) {
     const res = await fetch(`${url}/user/updateProfile/${id}`, {
       method: "PUT",
       body: JSON.stringify(payload),
-      headers: { "Content-Type": "application/json" },
+      headers: authHeaders(),
     });
 
     if (res.ok) {
@@ -195,7 +196,7 @@ function Profile({ Pagetype = "none" }) {
     try {
       const res = await fetch(`${url}/user/deleteProfile/${id}`, {
         method: "DELETE",
-        headers: { "Content-Type": "application/json" },
+        headers: authHeaders(),
         body: JSON.stringify({ password: modalPassword }),
       });
 

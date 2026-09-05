@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 const url = import.meta.env.VITE_BASE_URI;
+import { authHeaders } from "../utils/api";
 
 export default function IssueModal({ issue, onClose, type, fetchIssues }) {
   if (!issue) return null;
@@ -25,9 +26,14 @@ export default function IssueModal({ issue, onClose, type, fetchIssues }) {
     try {
       const result = await fetch(`${url}/issue/${issue._id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: authHeaders(),
         body: JSON.stringify(issueValues),
       });
+      // const result = await fetch(`${url}/issue/${issue._id}`, {
+      //   method: "PUT",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(issueValues),
+      // });
 
       if (result.status == 200) {
         toast.success("Issue updated successfully!");
@@ -45,8 +51,12 @@ export default function IssueModal({ issue, onClose, type, fetchIssues }) {
 
   const deleteIssue = async (id) => {
     try {
-      const result = await fetch(`${url}/issue/${id}`, { method: "DELETE" });
-
+      // const result = await fetch(`${url}/issue/${id}`, { method: "DELETE" });
+      const result = await fetch(`${url}/issue/${id}`, {
+        method: "DELETE",
+        headers: authHeaders(),
+      });
+      
       if (result.status == 200) {
         toast.success("repo deleted successfully");
         onClose();
