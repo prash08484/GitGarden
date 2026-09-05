@@ -332,8 +332,8 @@ function Repo() {
                                             </button>
                                             <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content" style={{ backgroundColor: "#0c1110", color: "whitesmoke", border: "0.8px solid #808080ac" }}>
-                                                        <div class="modal-header py-3 px-4" style={{ borderBottom: "0.8px solid #808080ac" }}>
+                                                    <div class="modal-content" style={{ backgroundColor: "var(--gh-panel)", color: "var(--gh-text)", border: "1px solid var(--gh-border)" }}>
+                                                        <div class="modal-header py-3 px-4" style={{ borderBottom: "0.8px solid var(--gh-border)" }}>
                                                             <h1 class="modal-title fs-6 fw-bold" id="staticBackdropLabel">Edit Repo</h1>
                                                         </div>
                                                         <div class="modal-body px-4">
@@ -349,7 +349,7 @@ function Repo() {
                                                                         onChange={handleChange}
                                                                         required
                                                                     />
-                                                                    <i style={{ color: "#808080", fontSize: "9.5px", textAlign: "right", display: "inline-block", width: "100%" }} >*max 20 characters</i>
+                                                                    <i style={{ color: "var(--gh-muted)", fontSize: "9.5px", textAlign: "right", display: "inline-block", width: "100%" }} >*max 20 characters</i>
                                                                 </div>
 
                                                                 <div>
@@ -362,7 +362,7 @@ function Repo() {
                                                                         value={formValues.description}
                                                                         onChange={handleChange}
                                                                     />
-                                                                    <i style={{ color: "#808080", fontSize: "9.5px", textAlign: "right", display: "inline-block", width: "100%" }} >*max 100 characters</i>
+                                                                    <i style={{ color: "var(--gh-muted)", fontSize: "9.5px", textAlign: "right", display: "inline-block", width: "100%" }} >*max 100 characters</i>
                                                                 </div>
 
                                                                 <div>
@@ -379,7 +379,7 @@ function Repo() {
                                                                                 }
                                                                             />
                                                                             <div className='mb-0' style={{ display: "flex", flexDirection: "column" }}>
-                                                                                <p className='mb-0' style={{ color: "whitesmoke" }}>Public</p>
+                                                                                <p className='mb-0' style={{ color: "var(--gh-text)" }}>Public</p>
                                                                                 <p className='mb-0'>Anyone on the internet can see this repository.</p>
                                                                             </div>
                                                                         </div>
@@ -395,7 +395,7 @@ function Repo() {
                                                                             />
 
                                                                             <div className='mb-0' style={{ display: "flex", flexDirection: "column" }}>
-                                                                                <p className='mb-0' style={{ color: "whitesmoke" }}>Private</p>
+                                                                                <p className='mb-0' style={{ color: "var(--gh-text)" }}>Private</p>
                                                                                 <p className='mb-0'>You choose who can commit or see this repository.</p>
                                                                             </div>
                                                                         </div>
@@ -404,7 +404,7 @@ function Repo() {
 
                                                                 <span class="modal-footer px-4 pe-0" style={{ borderTop: "0" }}>
                                                                     <button type="button" class="btn btn-secondary fw-semibold px-3" data-bs-dismiss="modal">Cancel</button>
-                                                                    <button type="submit" class="btn fw-semibold px-4" style={{ backgroundColor: "green", color: "whitesmoke", border: "1px solid green" }}>Save</button>
+                                                                    <button type="submit" class="btn fw-semibold px-4" style={{ backgroundColor: "var(--gh-green)", color: "var(--gh-text)", border: "1px solid var(--gh-green)" }}>Save</button>
                                                                 </span>
                                                             </form>
                                                         </div>
@@ -424,8 +424,8 @@ function Repo() {
                                             </button>
                                             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content" style={{ backgroundColor: "#0c1110", color: "whitesmoke", border: "0.8px solid #808080ac" }}>
-                                                        <div class="modal-header py-3 px-4" style={{ borderBottom: "0.8px solid #808080ac" }}>
+                                                    <div class="modal-content" style={{ backgroundColor: "var(--gh-panel)", color: "var(--gh-text)", border: "1px solid var(--gh-border)" }}>
+                                                        <div class="modal-header py-3 px-4" style={{ borderBottom: "0.8px solid var(--gh-border)" }}>
                                                             <h1 class="modal-title fs-6 fw-bold" id="staticBackdropLabel">Delete Repo</h1>
                                                         </div>
                                                         <div class="modal-body px-4">
@@ -433,7 +433,7 @@ function Repo() {
                                                         </div>
                                                         <div class="modal-footer px-4" style={{ borderTop: "0" }}>
                                                             <button type="button" class="fw-semibold px-3" data-bs-dismiss="modal">Cancel</button>
-                                                            <button type="button" class="btn fw-semibold px-3" data-bs-dismiss="modal" onClick={() => deleteRepo(repo._id)} style={{ backgroundColor: "red", color: "whitesmoke", border: "1px solid red" }}>Delete</button>
+                                                            <button type="button" class="btn fw-semibold px-3" data-bs-dismiss="modal" onClick={() => deleteRepo(repo._id)} style={{ backgroundColor: "var(--gh-danger)", color: "var(--gh-text)", border: "1px solid var(--gh-danger)" }}>Delete</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -501,8 +501,8 @@ function Repo() {
                                         </div>
                                         <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content" style={{ backgroundColor: "#0c1110", color: "whitesmoke", border: "0.8px solid #808080ac" }}>
-                                                    <div class="modal-header py-3 px-4" style={{ borderBottom: "0.8px solid #808080ac" }}>
+                                                <div class="modal-content" style={{ backgroundColor: "var(--gh-panel)", color: "var(--gh-text)", border: "1px solid var(--gh-border)" }}>
+                                                    <div class="modal-header py-3 px-4" style={{ borderBottom: "0.8px solid var(--gh-border)" }}>
                                                         <h1 class="modal-title fs-6 fw-bold" id="staticBackdropLabel">Create issue</h1>
                                                     </div>
                                                     <div class="modal-body px-4">
@@ -518,7 +518,7 @@ function Repo() {
                                                                     onChange={handleIssueChange}
                                                                     required
                                                                 />
-                                                                <i style={{ color: "#808080", fontSize: "9.5px", textAlign: "right", display: "inline-block", width: "100%" }} >*max 20 characters</i>
+                                                                <i style={{ color: "var(--gh-muted)", fontSize: "9.5px", textAlign: "right", display: "inline-block", width: "100%" }} >*max 20 characters</i>
                                                             </div>
 
                                                             <div>
@@ -531,12 +531,12 @@ function Repo() {
                                                                     value={issueValues.description}
                                                                     onChange={handleIssueChange}
                                                                 />
-                                                                <i style={{ color: "#808080", fontSize: "9.5px", textAlign: "right", display: "inline-block", width: "100%" }} >*max 100 characters</i>
+                                                                <i style={{ color: "var(--gh-muted)", fontSize: "9.5px", textAlign: "right", display: "inline-block", width: "100%" }} >*max 100 characters</i>
                                                             </div>
 
                                                             <span class="modal-footer p-0" style={{ borderTop: "0" }}>
                                                                 <button type="button" class="btn btn-secondary fw-semibold px-4" data-bs-dismiss="modal">Cancel</button>
-                                                                <button type="submit" class="btn fw-semibold px-4" style={{ backgroundColor: "green", color: "whitesmoke", border: "1px solid green" }}>Add</button>
+                                                                <button type="submit" class="btn fw-semibold px-4" style={{ backgroundColor: "var(--gh-green)", color: "var(--gh-text)", border: "1px solid var(--gh-green)" }}>Add</button>
                                                             </span>
                                                         </form>
                                                     </div>
@@ -567,8 +567,8 @@ function Repo() {
                                                 </button>
                                                 <div class="modal fade" id="editFileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered">
-                                                        <div class="modal-content" style={{ backgroundColor: "#0c1110", color: "whitesmoke", border: "0.8px solid #808080ac" }}>
-                                                            <div class="modal-header py-3 px-4" style={{ borderBottom: "0.8px solid #808080ac" }}>
+                                                        <div class="modal-content" style={{ backgroundColor: "var(--gh-panel)", color: "var(--gh-text)", border: "1px solid var(--gh-border)" }}>
+                                                            <div class="modal-header py-3 px-4" style={{ borderBottom: "0.8px solid var(--gh-border)" }}>
                                                                 <h1 class="modal-title fs-6 fw-bold" id="staticBackdropLabel">Edit {selectedFile}</h1>
                                                             </div>
                                                             <div class="modal-body px-4">
@@ -584,12 +584,12 @@ function Repo() {
                                                                             value={toBeFileContent}
                                                                             onChange={handleFileContentChange}
                                                                         />
-                                                                        <i style={{ color: "#808080", fontSize: "9.5px", textAlign: "right", display: "inline-block", width: "100%" }} >*max 1000 characters</i>
+                                                                        <i style={{ color: "var(--gh-muted)", fontSize: "9.5px", textAlign: "right", display: "inline-block", width: "100%" }} >*max 1000 characters</i>
                                                                     </div>
 
                                                                     <span class="modal-footer" style={{ borderTop: "0", paddingRight: "0" }}>
                                                                         <button type="button" class="btn btn-secondary fw-semibold px-3 cancel" data-bs-dismiss="modal" onClick={() => setToBeFileContent(fileContent)}>Cancel</button>
-                                                                        <button type="button" class="btn fw-semibold px-3" id='editFileBtn' style={{ backgroundColor: "green", color: "whitesmoke", border: "1px solid green" }} onClick={handlePassModalOpen}>Save</button>
+                                                                        <button type="button" class="btn fw-semibold px-3" id='editFileBtn' style={{ backgroundColor: "var(--gh-green)", color: "var(--gh-text)", border: "1px solid var(--gh-green)" }} onClick={handlePassModalOpen}>Save</button>
                                                                     </span>
                                                                 </form>
                                                             </div>
@@ -598,8 +598,8 @@ function Repo() {
                                                 </div>
                                                 <div class="modal fade" id="PasswordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered">
-                                                        <div class="modal-content" style={{ backgroundColor: "#0c1110", color: "whitesmoke", border: "0.8px solid #808080ac" }}>
-                                                            <div class="modal-header py-3 px-4" style={{ borderBottom: "0.8px solid #808080ac" }}>
+                                                        <div class="modal-content" style={{ backgroundColor: "var(--gh-panel)", color: "var(--gh-text)", border: "1px solid var(--gh-border)" }}>
+                                                            <div class="modal-header py-3 px-4" style={{ borderBottom: "0.8px solid var(--gh-border)" }}>
                                                                 <h1 class="modal-title fs-6 fw-bold" id="staticBackdropLabel">Password Verification</h1>
                                                             </div>
                                                             <div class="modal-body px-4">
@@ -611,7 +611,7 @@ function Repo() {
                                                                         placeholder='Enter commit name'
                                                                         value={commitName}
                                                                         onChange={handleCommitNameChange}
-                                                                        style={{ backgroundColor: "black", padding: "4px 8px", fontSize: "13.5px", color: "whitesmoke", border: "0.8px solid #808080ac", borderRadius: "6px" }}
+                                                                        style={{ backgroundColor: "var(--gh-input)", padding: "4px 8px", fontSize: "13.5px", color: "var(--gh-text)", border: "0.8px solid var(--gh-border)", borderRadius: "6px" }}
                                                                     />
                                                                     <input
                                                                         type="password"
@@ -619,12 +619,12 @@ function Repo() {
                                                                         placeholder='Enter your password'
                                                                         value={userPassword}
                                                                         onChange={handlePasswordChange}
-                                                                        style={{ backgroundColor: "black", padding: "4px 8px", fontSize: "13.5px", color: "whitesmoke", border: "0.8px solid #808080ac", borderRadius: "6px" }}
+                                                                        style={{ backgroundColor: "var(--gh-input)", padding: "4px 8px", fontSize: "13.5px", color: "var(--gh-text)", border: "0.8px solid var(--gh-border)", borderRadius: "6px" }}
                                                                     />
 
                                                                     <span class="modal-footer" style={{ borderTop: "0", paddingRight: "0" }}>
                                                                         <button type="button" class="btn btn-secondary fw-semibold px-3 cancel" data-bs-dismiss="modal">Cancel</button>
-                                                                        <button type="submit" class="btn fw-semibold px-3" style={{ backgroundColor: "green", color: "whitesmoke", border: "1px solid green" }}>Save</button>
+                                                                        <button type="submit" class="btn fw-semibold px-3" style={{ backgroundColor: "var(--gh-green)", color: "var(--gh-text)", border: "1px solid var(--gh-green)" }}>Save</button>
                                                                     </span>
                                                                 </form>
                                                             </div>
@@ -636,8 +636,8 @@ function Repo() {
                                             <div className='right'>
                                                 <p className='mb-0'>
                                                     <svg width="17" height="17" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
-                                                        <path d="M3.13644 9.54175C3.02923 9.94185 3.26667 10.3531 3.66676 10.4603C4.06687 10.5675 4.47812 10.3301 4.58533 9.92998C5.04109 8.22904 6.04538 6.72602 7.44243 5.65403C8.83948 4.58203 10.5512 4.00098 12.3122 4.00098C14.0731 4.00098 15.7848 4.58203 17.1819 5.65403C18.3999 6.58866 19.3194 7.85095 19.8371 9.28639L18.162 8.34314C17.801 8.1399 17.3437 8.26774 17.1405 8.62867C16.9372 8.98959 17.0651 9.44694 17.426 9.65017L20.5067 11.3849C20.68 11.4825 20.885 11.5072 21.0766 11.4537C21.2682 11.4001 21.4306 11.2727 21.5282 11.0993L23.2629 8.01828C23.4661 7.65734 23.3382 7.2 22.9773 6.99679C22.6163 6.79358 22.159 6.92145 21.9558 7.28239L21.195 8.63372C20.5715 6.98861 19.5007 5.54258 18.095 4.464C16.436 3.19099 14.4033 2.50098 12.3122 2.50098C10.221 2.50098 8.1883 3.19099 6.52928 4.464C4.87027 5.737 3.67766 7.52186 3.13644 9.54175Z" fill="#f1f6fd" />
-                                                        <path d="M21.4906 14.4582C21.5978 14.0581 21.3604 13.6469 20.9603 13.5397C20.5602 13.4325 20.1489 13.6699 20.0417 14.07C19.5859 15.7709 18.5816 17.274 17.1846 18.346C15.7875 19.418 14.0758 19.999 12.3149 19.999C10.5539 19.999 8.84219 19.418 7.44514 18.346C6.2292 17.4129 5.31079 16.1534 4.79261 14.721L6.45529 15.6573C6.81622 15.8605 7.27356 15.7327 7.47679 15.3718C7.68003 15.0108 7.55219 14.5535 7.19127 14.3502L4.11056 12.6155C3.93723 12.5179 3.73222 12.4932 3.54065 12.5467C3.34907 12.6003 3.18662 12.7278 3.08903 12.9011L1.3544 15.9821C1.15119 16.3431 1.27906 16.8004 1.64 17.0036C2.00094 17.2068 2.45828 17.079 2.66149 16.718L3.42822 15.3562C4.05115 17.0054 5.12348 18.4552 6.532 19.536C8.19102 20.809 10.2237 21.499 12.3149 21.499C14.406 21.499 16.4387 20.809 18.0977 19.536C19.7568 18.263 20.9494 16.4781 21.4906 14.4582Z" fill="#f1f6fd" />
+                                                        <path d="M3.13644 9.54175C3.02923 9.94185 3.26667 10.3531 3.66676 10.4603C4.06687 10.5675 4.47812 10.3301 4.58533 9.92998C5.04109 8.22904 6.04538 6.72602 7.44243 5.65403C8.83948 4.58203 10.5512 4.00098 12.3122 4.00098C14.0731 4.00098 15.7848 4.58203 17.1819 5.65403C18.3999 6.58866 19.3194 7.85095 19.8371 9.28639L18.162 8.34314C17.801 8.1399 17.3437 8.26774 17.1405 8.62867C16.9372 8.98959 17.0651 9.44694 17.426 9.65017L20.5067 11.3849C20.68 11.4825 20.885 11.5072 21.0766 11.4537C21.2682 11.4001 21.4306 11.2727 21.5282 11.0993L23.2629 8.01828C23.4661 7.65734 23.3382 7.2 22.9773 6.99679C22.6163 6.79358 22.159 6.92145 21.9558 7.28239L21.195 8.63372C20.5715 6.98861 19.5007 5.54258 18.095 4.464C16.436 3.19099 14.4033 2.50098 12.3122 2.50098C10.221 2.50098 8.1883 3.19099 6.52928 4.464C4.87027 5.737 3.67766 7.52186 3.13644 9.54175Z" fill="var(--gh-text)" />
+                                                        <path d="M21.4906 14.4582C21.5978 14.0581 21.3604 13.6469 20.9603 13.5397C20.5602 13.4325 20.1489 13.6699 20.0417 14.07C19.5859 15.7709 18.5816 17.274 17.1846 18.346C15.7875 19.418 14.0758 19.999 12.3149 19.999C10.5539 19.999 8.84219 19.418 7.44514 18.346C6.2292 17.4129 5.31079 16.1534 4.79261 14.721L6.45529 15.6573C6.81622 15.8605 7.27356 15.7327 7.47679 15.3718C7.68003 15.0108 7.55219 14.5535 7.19127 14.3502L4.11056 12.6155C3.93723 12.5179 3.73222 12.4932 3.54065 12.5467C3.34907 12.6003 3.18662 12.7278 3.08903 12.9011L1.3544 15.9821C1.15119 16.3431 1.27906 16.8004 1.64 17.0036C2.00094 17.2068 2.45828 17.079 2.66149 16.718L3.42822 15.3562C4.05115 17.0054 5.12348 18.4552 6.532 19.536C8.19102 20.809 10.2237 21.499 12.3149 21.499C14.406 21.499 16.4387 20.809 18.0977 19.536C19.7568 18.263 20.9494 16.4781 21.4906 14.4582Z" fill="var(--gh-text)" />
                                                     </svg>
                                                     commits
                                                 </p>
@@ -651,10 +651,10 @@ function Repo() {
                                                 <div className="d-flex">
                                                     <button className='btn border-none' style={{ height: "fit-content", border: "none", outline: "none" }} onClick={() => { setSelectedFile(""); setFileContent("") }}>
                                                         <svg width="14" height="14" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
-                                                            <path d="M3.57813 12.4981C3.5777 12.6905 3.65086 12.8831 3.79761 13.0299L9.7936 19.0301C10.0864 19.3231 10.5613 19.3233 10.8543 19.0305C11.1473 18.7377 11.1474 18.2629 10.8546 17.9699L6.13418 13.2461L20.3295 13.2461C20.7437 13.2461 21.0795 12.9103 21.0795 12.4961C21.0795 12.0819 20.7437 11.7461 20.3295 11.7461L6.14168 11.7461L10.8546 7.03016C11.1474 6.73718 11.1473 6.2623 10.8543 5.9695C10.5613 5.6767 10.0864 5.67685 9.79362 5.96984L3.84392 11.9233C3.68134 12.0609 3.57812 12.2664 3.57812 12.4961L3.57813 12.4981Z" fill="#fff" />
+                                                            <path d="M3.57813 12.4981C3.5777 12.6905 3.65086 12.8831 3.79761 13.0299L9.7936 19.0301C10.0864 19.3231 10.5613 19.3233 10.8543 19.0305C11.1473 18.7377 11.1474 18.2629 10.8546 17.9699L6.13418 13.2461L20.3295 13.2461C20.7437 13.2461 21.0795 12.9103 21.0795 12.4961C21.0795 12.0819 20.7437 11.7461 20.3295 11.7461L6.14168 11.7461L10.8546 7.03016C11.1474 6.73718 11.1473 6.2623 10.8543 5.9695C10.5613 5.6767 10.0864 5.67685 9.79362 5.96984L3.84392 11.9233C3.68134 12.0609 3.57812 12.2664 3.57812 12.4961L3.57813 12.4981Z" fill="var(--gh-text)" />
                                                         </svg>
                                                     </button>
-                                                    <div style={{ height: "341.6px", color: "#f5f5f5e2", borderLeft: "0.8px solid #8080802f", padding: "1rem", fontSize: "12px", fontWeight: "500", overflowY: "auto" }}>
+                                                    <div style={{ height: "341.6px", color: "var(--gh-text)", borderLeft: "0.8px solid rgba(110, 118, 129, 0.15)", padding: "1rem", fontSize: "12px", fontWeight: "500", overflowY: "auto" }}>
                                                         {fileContent}
                                                     </div>
                                                 </div>
@@ -667,8 +667,8 @@ function Repo() {
                                                                 <th scope="row">
                                                                     <span type="button" id="fileBtn" onClick={() => handleFileClick(file)}>
                                                                         <svg width="14" height="13" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
-                                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M16.8923 16.7332C16.8923 17.9759 15.885 18.9832 14.6423 18.9832H6.34375C5.10111 18.9832 4.09375 17.9759 4.09375 16.7332V8.60187C4.09375 8.00538 4.33061 7.4333 4.75226 7.01138L9.10142 2.65951C9.52341 2.23725 10.0959 2 10.6929 2H14.6423C15.885 2 16.8923 3.00736 16.8923 4.25V16.7332ZM14.6423 17.4832C15.0566 17.4832 15.3923 17.1475 15.3923 16.7332V4.25C15.3923 3.83579 15.0565 3.5 14.6423 3.5H10.8227L10.8249 6.47969C10.8257 7.72296 9.81813 8.73129 8.57486 8.73129H5.59375V16.7332C5.59375 17.1475 5.92954 17.4832 6.34375 17.4832H14.6423ZM6.65314 7.23129L9.32349 4.55928L9.32486 6.48076C9.32516 6.89518 8.98928 7.23129 8.57486 7.23129H6.65314Z" fill="#f5f5f5" />
-                                                                            <path d="M18.4065 5.68442C18.4065 5.27021 18.7423 4.93442 19.1565 4.93442C19.5707 4.93442 19.9065 5.27021 19.9065 5.68442V17.2514C19.9065 19.8747 17.7799 22.0014 15.1565 22.0014H7.79765C7.38344 22.0014 7.04765 21.6656 7.04765 21.2514C7.04765 20.8371 7.38344 20.5014 7.79765 20.5014H15.1565C16.9514 20.5014 18.4065 19.0463 18.4065 17.2514V5.68442Z" fill="#f5f5f5" />
+                                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M16.8923 16.7332C16.8923 17.9759 15.885 18.9832 14.6423 18.9832H6.34375C5.10111 18.9832 4.09375 17.9759 4.09375 16.7332V8.60187C4.09375 8.00538 4.33061 7.4333 4.75226 7.01138L9.10142 2.65951C9.52341 2.23725 10.0959 2 10.6929 2H14.6423C15.885 2 16.8923 3.00736 16.8923 4.25V16.7332ZM14.6423 17.4832C15.0566 17.4832 15.3923 17.1475 15.3923 16.7332V4.25C15.3923 3.83579 15.0565 3.5 14.6423 3.5H10.8227L10.8249 6.47969C10.8257 7.72296 9.81813 8.73129 8.57486 8.73129H5.59375V16.7332C5.59375 17.1475 5.92954 17.4832 6.34375 17.4832H14.6423ZM6.65314 7.23129L9.32349 4.55928L9.32486 6.48076C9.32516 6.89518 8.98928 7.23129 8.57486 7.23129H6.65314Z" fill="var(--gh-text)" />
+                                                                            <path d="M18.4065 5.68442C18.4065 5.27021 18.7423 4.93442 19.1565 4.93442C19.5707 4.93442 19.9065 5.27021 19.9065 5.68442V17.2514C19.9065 19.8747 17.7799 22.0014 15.1565 22.0014H7.79765C7.38344 22.0014 7.04765 21.6656 7.04765 21.2514C7.04765 20.8371 7.38344 20.5014 7.79765 20.5014H15.1565C16.9514 20.5014 18.4065 19.0463 18.4065 17.2514V5.68442Z" fill="var(--gh-text)" />
                                                                         </svg>
                                                                         {file.path}
                                                                     </span>
@@ -703,41 +703,41 @@ function Repo() {
                             <div className="about">
                                 <div>
                                     <p className='fw-semibold'>About</p>
-                                    <p style={{ color: "whitesmoke", opacity: "0.9", fontSize: "14px !important" }}>{repo.description}</p>
+                                    <p style={{ color: "var(--gh-text)", opacity: "0.9", fontSize: "14px !important" }}>{repo.description}</p>
                                 </div>
                                 <div>
-                                    <div style={{ color: "#808080", fontSize: "12px", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                                    <div style={{ color: "var(--gh-muted)", fontSize: "12px", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
                                         <p className='mb-0'>
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.25 5C7.83579 5 7.5 5.33579 7.5 5.75V9.75C7.5 10.1642 7.83579 10.5 8.25 10.5H15.75C16.1642 10.5 16.5 10.1642 16.5 9.75V5.75C16.5 5.33579 16.1642 5 15.75 5H8.25ZM9 9V6.5H15V9H9Z" fill="#808080" />
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M6.75 2C5.50736 2 4.5 3.00736 4.5 4.25V19C4.5 20.6569 5.84315 22 7.5 22H18.75C19.1642 22 19.5 21.6642 19.5 21.25C19.5 20.8358 19.1642 20.5 18.75 20.5H18V17.5H18.75C19.1642 17.5 19.5 17.1642 19.5 16.75V4.25C19.5 3.00736 18.4926 2 17.25 2H6.75ZM18 16V4.25C18 3.83579 17.6642 3.5 17.25 3.5H6.75C6.33579 3.5 6 3.83579 6 4.25V16.4013C6.44126 16.1461 6.95357 16 7.5 16H18ZM16.5 17.5V20.5H7.5C6.67157 20.5 6 19.8284 6 19C6 18.1716 6.67157 17.5 7.5 17.5H16.5Z" fill="#808080" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.25 5C7.83579 5 7.5 5.33579 7.5 5.75V9.75C7.5 10.1642 7.83579 10.5 8.25 10.5H15.75C16.1642 10.5 16.5 10.1642 16.5 9.75V5.75C16.5 5.33579 16.1642 5 15.75 5H8.25ZM9 9V6.5H15V9H9Z" fill="var(--gh-muted)" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M6.75 2C5.50736 2 4.5 3.00736 4.5 4.25V19C4.5 20.6569 5.84315 22 7.5 22H18.75C19.1642 22 19.5 21.6642 19.5 21.25C19.5 20.8358 19.1642 20.5 18.75 20.5H18V17.5H18.75C19.1642 17.5 19.5 17.1642 19.5 16.75V4.25C19.5 3.00736 18.4926 2 17.25 2H6.75ZM18 16V4.25C18 3.83579 17.6642 3.5 17.25 3.5H6.75C6.33579 3.5 6 3.83579 6 4.25V16.4013C6.44126 16.1461 6.95357 16 7.5 16H18ZM16.5 17.5V20.5H7.5C6.67157 20.5 6 19.8284 6 19C6 18.1716 6.67157 17.5 7.5 17.5H16.5Z" fill="var(--gh-muted)" />
                                             </svg>
                                             Readme
                                         </p>
                                         <p className='mb-0'>
                                             <svg width="18" height="18" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
-                                                <path d="M13.4073 3.25026C13.7628 3.25965 14.0627 3.51728 14.1257 3.8672L16.5642 17.4206L18.4564 13.0435C18.5751 12.7689 18.8456 12.5911 19.1448 12.5911H22.0234C22.4377 12.5911 22.7734 12.9269 22.7734 13.3411C22.7734 13.7553 22.4377 14.0911 22.0234 14.0911H19.6377L16.9546 20.2976C16.8234 20.6012 16.5087 20.783 16.1801 20.745C15.8515 20.7071 15.5866 20.4584 15.528 20.1328L13.2901 7.69366L11.239 16.4222C11.1675 16.7267 10.9146 16.9547 10.6044 16.9946C10.2942 17.0344 9.99191 16.8776 9.84581 16.6011L6.82861 10.891L5.4212 13.6791C5.29365 13.9317 5.03472 14.0911 4.75167 14.0911H1.87305C1.45883 14.0911 1.12305 13.7553 1.12305 13.3411C1.12305 12.9269 1.45883 12.5911 1.87305 12.5911H4.29014L6.14387 8.91892C6.27028 8.66849 6.52589 8.50955 6.80641 8.50694C7.08693 8.50432 7.34545 8.65848 7.47651 8.90651L10.2368 14.1302L12.6574 3.82844C12.7388 3.48233 13.0519 3.24088 13.4073 3.25026Z" fill="#808080" />
+                                                <path d="M13.4073 3.25026C13.7628 3.25965 14.0627 3.51728 14.1257 3.8672L16.5642 17.4206L18.4564 13.0435C18.5751 12.7689 18.8456 12.5911 19.1448 12.5911H22.0234C22.4377 12.5911 22.7734 12.9269 22.7734 13.3411C22.7734 13.7553 22.4377 14.0911 22.0234 14.0911H19.6377L16.9546 20.2976C16.8234 20.6012 16.5087 20.783 16.1801 20.745C15.8515 20.7071 15.5866 20.4584 15.528 20.1328L13.2901 7.69366L11.239 16.4222C11.1675 16.7267 10.9146 16.9547 10.6044 16.9946C10.2942 17.0344 9.99191 16.8776 9.84581 16.6011L6.82861 10.891L5.4212 13.6791C5.29365 13.9317 5.03472 14.0911 4.75167 14.0911H1.87305C1.45883 14.0911 1.12305 13.7553 1.12305 13.3411C1.12305 12.9269 1.45883 12.5911 1.87305 12.5911H4.29014L6.14387 8.91892C6.27028 8.66849 6.52589 8.50955 6.80641 8.50694C7.08693 8.50432 7.34545 8.65848 7.47651 8.90651L10.2368 14.1302L12.6574 3.82844C12.7388 3.48233 13.0519 3.24088 13.4073 3.25026Z" fill="var(--gh-muted)" />
                                             </svg>
                                             Activity
                                         </p>
                                         <p className='mb-0'>
                                             <svg width="18" height="18" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9996 2.125C12.2851 2.125 12.5459 2.28707 12.6722 2.54308L15.3264 7.9211L21.2614 8.78351C21.5439 8.82456 21.7786 9.02244 21.8669 9.29395C21.9551 9.56546 21.8815 9.86351 21.6771 10.0628L17.3825 14.249L18.3963 20.16C18.4445 20.4414 18.3289 20.7257 18.0979 20.8936C17.867 21.0614 17.5608 21.0835 17.3081 20.9506L11.9996 18.1598L6.69122 20.9506C6.43853 21.0835 6.13233 21.0614 5.90137 20.8936C5.67041 20.7257 5.55475 20.4414 5.603 20.16L6.61682 14.249L2.32222 10.0628C2.11779 9.86351 2.04421 9.56546 2.13243 9.29395C2.22065 9.02244 2.45536 8.82456 2.73788 8.78351L8.67288 7.9211L11.3271 2.54308C11.4534 2.28707 11.7142 2.125 11.9996 2.125ZM11.9996 4.56966L9.84348 8.93853C9.73423 9.15989 9.52306 9.31331 9.27878 9.34881L4.45745 10.0494L7.94619 13.4501C8.12296 13.6224 8.20362 13.8706 8.16189 14.1139L7.33831 18.9158L11.6506 16.6487C11.8691 16.5338 12.1302 16.5338 12.3486 16.6487L16.661 18.9158L15.8374 14.1139C15.7957 13.8706 15.8763 13.6224 16.0531 13.4501L19.5418 10.0494L14.7205 9.34881C14.4762 9.31331 14.2651 9.15989 14.1558 8.93853L11.9996 4.56966Z" fill="#808080" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9996 2.125C12.2851 2.125 12.5459 2.28707 12.6722 2.54308L15.3264 7.9211L21.2614 8.78351C21.5439 8.82456 21.7786 9.02244 21.8669 9.29395C21.9551 9.56546 21.8815 9.86351 21.6771 10.0628L17.3825 14.249L18.3963 20.16C18.4445 20.4414 18.3289 20.7257 18.0979 20.8936C17.867 21.0614 17.5608 21.0835 17.3081 20.9506L11.9996 18.1598L6.69122 20.9506C6.43853 21.0835 6.13233 21.0614 5.90137 20.8936C5.67041 20.7257 5.55475 20.4414 5.603 20.16L6.61682 14.249L2.32222 10.0628C2.11779 9.86351 2.04421 9.56546 2.13243 9.29395C2.22065 9.02244 2.45536 8.82456 2.73788 8.78351L8.67288 7.9211L11.3271 2.54308C11.4534 2.28707 11.7142 2.125 11.9996 2.125ZM11.9996 4.56966L9.84348 8.93853C9.73423 9.15989 9.52306 9.31331 9.27878 9.34881L4.45745 10.0494L7.94619 13.4501C8.12296 13.6224 8.20362 13.8706 8.16189 14.1139L7.33831 18.9158L11.6506 16.6487C11.8691 16.5338 12.1302 16.5338 12.3486 16.6487L16.661 18.9158L15.8374 14.1139C15.7957 13.8706 15.8763 13.6224 16.0531 13.4501L19.5418 10.0494L14.7205 9.34881C14.4762 9.31331 14.2651 9.15989 14.1558 8.93853L11.9996 4.56966Z" fill="var(--gh-muted)" />
                                             </svg>
 
                                             stars
                                         </p>
                                         <p className='mb-0'>
                                             <svg width="18" height="18" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0234 7.625C9.60719 7.625 7.64844 9.58375 7.64844 12C7.64844 14.4162 9.60719 16.375 12.0234 16.375C14.4397 16.375 16.3984 14.4162 16.3984 12C16.3984 9.58375 14.4397 7.625 12.0234 7.625ZM9.14844 12C9.14844 10.4122 10.4356 9.125 12.0234 9.125C13.6113 9.125 14.8984 10.4122 14.8984 12C14.8984 13.5878 13.6113 14.875 12.0234 14.875C10.4356 14.875 9.14844 13.5878 9.14844 12Z" fill="#808080" />
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0234 4.5C7.71145 4.5 3.99772 7.05632 2.30101 10.7351C1.93091 11.5375 1.93091 12.4627 2.30101 13.2652C3.99772 16.9439 7.71145 19.5002 12.0234 19.5002C16.3353 19.5002 20.049 16.9439 21.7458 13.2652C22.1159 12.4627 22.1159 11.5375 21.7458 10.7351C20.049 7.05633 16.3353 4.5 12.0234 4.5ZM3.66311 11.3633C5.12472 8.19429 8.32017 6 12.0234 6C15.7266 6 18.922 8.19429 20.3836 11.3633C20.5699 11.7671 20.5699 12.2331 20.3836 12.6369C18.922 15.8059 15.7266 18.0002 12.0234 18.0002C8.32017 18.0002 5.12472 15.8059 3.66311 12.6369C3.47688 12.2331 3.47688 11.7671 3.66311 11.3633Z" fill="#808080" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0234 7.625C9.60719 7.625 7.64844 9.58375 7.64844 12C7.64844 14.4162 9.60719 16.375 12.0234 16.375C14.4397 16.375 16.3984 14.4162 16.3984 12C16.3984 9.58375 14.4397 7.625 12.0234 7.625ZM9.14844 12C9.14844 10.4122 10.4356 9.125 12.0234 9.125C13.6113 9.125 14.8984 10.4122 14.8984 12C14.8984 13.5878 13.6113 14.875 12.0234 14.875C10.4356 14.875 9.14844 13.5878 9.14844 12Z" fill="var(--gh-muted)" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0234 4.5C7.71145 4.5 3.99772 7.05632 2.30101 10.7351C1.93091 11.5375 1.93091 12.4627 2.30101 13.2652C3.99772 16.9439 7.71145 19.5002 12.0234 19.5002C16.3353 19.5002 20.049 16.9439 21.7458 13.2652C22.1159 12.4627 22.1159 11.5375 21.7458 10.7351C20.049 7.05633 16.3353 4.5 12.0234 4.5ZM3.66311 11.3633C5.12472 8.19429 8.32017 6 12.0234 6C15.7266 6 18.922 8.19429 20.3836 11.3633C20.5699 11.7671 20.5699 12.2331 20.3836 12.6369C18.922 15.8059 15.7266 18.0002 12.0234 18.0002C8.32017 18.0002 5.12472 15.8059 3.66311 12.6369C3.47688 12.2331 3.47688 11.7671 3.66311 11.3633Z" fill="var(--gh-muted)" />
                                             </svg>
 
                                             watching
                                         </p>
                                         <p className='mb-0'>
                                             <svg width="18" height="18" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.52344 2.75C4.52344 2.33579 4.85922 2 5.27344 2H8.27344C8.68765 2 9.02344 2.33579 9.02344 2.75V5.75C9.02344 6.16421 8.68765 6.5 8.27344 6.5H7.48438L7.48438 9.75H8.27344C8.68765 9.75 9.02344 10.0858 9.02344 10.5V11.25H15.0234V10.5C15.0234 10.0858 15.3592 9.75 15.7734 9.75H18.7734C19.1877 9.75 19.5234 10.0858 19.5234 10.5V13.5C19.5234 13.9142 19.1877 14.25 18.7734 14.25H18.0234V17.5H18.7734C19.1877 17.5 19.5234 17.8358 19.5234 18.25V21.25C19.5234 21.6642 19.1877 22 18.7734 22H15.7734C15.3592 22 15.0234 21.6642 15.0234 21.25V18.25C15.0234 17.8358 15.3592 17.5 15.7734 17.5H16.5234V14.25H15.7734C15.3592 14.25 15.0234 13.9142 15.0234 13.5V12.75H9.02344V13.5C9.02344 13.9142 8.68765 14.25 8.27344 14.25H5.27344C4.85922 14.25 4.52344 13.9142 4.52344 13.5V10.5C4.52344 10.0858 4.85922 9.75 5.27344 9.75H5.98438L5.98438 6.5H5.27344C4.85922 6.5 4.52344 6.16421 4.52344 5.75V2.75ZM16.5234 12.75H18.0234V11.25H16.5234V12.75ZM7.52344 11.25H6.02344V12.75H7.52344V11.25ZM7.52344 5V3.5H6.02344V5H7.52344ZM16.5234 19H18.0234V20.5H16.5234V19Z" fill="#808080" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.52344 2.75C4.52344 2.33579 4.85922 2 5.27344 2H8.27344C8.68765 2 9.02344 2.33579 9.02344 2.75V5.75C9.02344 6.16421 8.68765 6.5 8.27344 6.5H7.48438L7.48438 9.75H8.27344C8.68765 9.75 9.02344 10.0858 9.02344 10.5V11.25H15.0234V10.5C15.0234 10.0858 15.3592 9.75 15.7734 9.75H18.7734C19.1877 9.75 19.5234 10.0858 19.5234 10.5V13.5C19.5234 13.9142 19.1877 14.25 18.7734 14.25H18.0234V17.5H18.7734C19.1877 17.5 19.5234 17.8358 19.5234 18.25V21.25C19.5234 21.6642 19.1877 22 18.7734 22H15.7734C15.3592 22 15.0234 21.6642 15.0234 21.25V18.25C15.0234 17.8358 15.3592 17.5 15.7734 17.5H16.5234V14.25H15.7734C15.3592 14.25 15.0234 13.9142 15.0234 13.5V12.75H9.02344V13.5C9.02344 13.9142 8.68765 14.25 8.27344 14.25H5.27344C4.85922 14.25 4.52344 13.9142 4.52344 13.5V10.5C4.52344 10.0858 4.85922 9.75 5.27344 9.75H5.98438L5.98438 6.5H5.27344C4.85922 6.5 4.52344 6.16421 4.52344 5.75V2.75ZM16.5234 12.75H18.0234V11.25H16.5234V12.75ZM7.52344 11.25H6.02344V12.75H7.52344V11.25ZM7.52344 5V3.5H6.02344V5H7.52344ZM16.5234 19H18.0234V20.5H16.5234V19Z" fill="var(--gh-muted)" />
                                             </svg>
 
                                             forks

@@ -225,10 +225,10 @@ function Profile({ Pagetype = "none" }) {
             icon={BookIcon}
             sx={{
               backgroundColor: "transparent",
-              color: "white",
+              color: "var(--gh-text)",
               "&:hover": {
                 textDecoration: "underline",
-                color: "white",
+                color: "var(--gh-text)",
               },
             }}
           >
@@ -244,10 +244,10 @@ function Profile({ Pagetype = "none" }) {
             icon={RepoIcon}
             sx={{
               backgroundColor: "transparent",
-              color: "whitesmoke",
+              color: "var(--gh-text)",
               "&:hover": {
                 textDecoration: "underline",
-                color: "white",
+                color: "var(--gh-text)",
               },
             }}
           >
@@ -263,10 +263,10 @@ function Profile({ Pagetype = "none" }) {
             icon={IssueOpenedIcon}
             sx={{
               backgroundColor: "transparent",
-              color: "whitesmoke",
+              color: "var(--gh-text)",
               "&:hover": {
                 textDecoration: "underline",
-                color: "white",
+                color: "var(--gh-text)",
               },
             }}
           >
@@ -328,8 +328,8 @@ function Profile({ Pagetype = "none" }) {
                   </div>
                   <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content" style={{ backgroundColor: "#0c1110", color: "whitesmoke", border: "0.8px solid #808080ac" }}>
-                        <div class="modal-header py-3 px-4" style={{ borderBottom: "0.8px solid #808080ac" }}>
+                      <div class="modal-content" style={{ backgroundColor: "var(--gh-panel)", color: "var(--gh-text)", border: "1px solid var(--gh-border)" }}>
+                        <div class="modal-header py-3 px-4" style={{ borderBottom: "0.8px solid var(--gh-border)" }}>
                           <h1 class="modal-title fs-6 fw-bold" id="staticBackdropLabel">Edit Profile</h1>
                         </div>
                         <div class="modal-body px-4">
@@ -346,7 +346,7 @@ function Profile({ Pagetype = "none" }) {
                                 onChange={handleChange}
                               />
                               <i style={{
-                                color: "#808080",
+                                color: "var(--gh-muted)",
                                 fontSize: "9.5px",
                                 textAlign: "right",
                                 display: "inline-block",
@@ -369,7 +369,7 @@ function Profile({ Pagetype = "none" }) {
                                 onChange={handleChange}
                               />
                               <i style={{
-                                color: "#808080",
+                                color: "var(--gh-muted)",
                                 fontSize: "9.5px",
                                 textAlign: "right",
                                 display: "inline-block",
@@ -379,7 +379,7 @@ function Profile({ Pagetype = "none" }) {
                               </i>
                             </div>
 
-                            <div className="mb-3 rounded p-4 text-center" style={{ border: "1px dotted gray" }}>
+                            <div className="mb-3 rounded p-4 text-center" style={{ border: "1px dotted var(--gh-muted)" }}>
                               {pendingImage && (
                                 <div className="mb-3 d-flex flex-column align-items-center">
                                   <img
@@ -387,7 +387,7 @@ function Profile({ Pagetype = "none" }) {
                                     alt="Pending preview"
                                     className="img-thumbnail"
                                   />
-                                  <small style={{ color: "whitesmoke", fontSize: "11px" }}>Preview</small>
+                                  <small style={{ color: "var(--gh-text)", fontSize: "11px" }}>Preview</small>
                                 </div>
                               )}
                               <UploadButton
@@ -398,7 +398,7 @@ function Profile({ Pagetype = "none" }) {
                                   allowedContent: "form-text text-muted"
                                 }}
                                 content={{
-                                  allowedContent: <span style={{ color: "whitesmoke", fontSize: "11px" }}>Images size up to 4MB</span>
+                                  allowedContent: <span style={{ color: "var(--gh-text)", fontSize: "11px" }}>Images size up to 4MB</span>
                                 }}
                                 onClientUploadComplete={(res) => {
                                   if (res && res[0]?.url) {
@@ -439,8 +439,8 @@ function Profile({ Pagetype = "none" }) {
                   </div>
                   <div class="modal fade" id="DeleteCheck" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content" style={{ backgroundColor: "#0c1110", color: "whitesmoke", border: "0.8px solid #808080ac" }}>
-                        <div class="modal-header py-3 px-4" style={{ borderBottom: "0.8px solid #808080ac" }}>
+                      <div class="modal-content" style={{ backgroundColor: "var(--gh-panel)", color: "var(--gh-text)", border: "1px solid var(--gh-border)" }}>
+                        <div class="modal-header py-3 px-4" style={{ borderBottom: "0.8px solid var(--gh-border)" }}>
                           <h1 class="modal-title fs-6 fw-bold" id="staticBackdropLabel">Delete Repo</h1>
                         </div>
                         <div class="modal-body px-4">
@@ -455,9 +455,9 @@ function Profile({ Pagetype = "none" }) {
                   </div>
                   <div class="modal fade" id="confirmationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog  modal-dialog-centered">
-                      <div class="modal-content" style={{ backgroundColor: "#0c1110", color: "whitesmoke", border: "0.8px solid #808080ac" }}>
+                      <div class="modal-content" style={{ backgroundColor: "var(--gh-panel)", color: "var(--gh-text)", border: "1px solid var(--gh-border)" }}>
 
-                        <div class="modal-header py-3 px-4" style={{ borderBottom: "0.8px solid #808080ac" }}>
+                        <div class="modal-header py-3 px-4" style={{ borderBottom: "0.8px solid var(--gh-border)" }}>
                           <h1 class="modal-title fs-6 fw-bold" id="staticBackdropLabel">Password Confirmation</h1>
                         </div>
 
@@ -473,10 +473,10 @@ function Profile({ Pagetype = "none" }) {
                               required
                               value={modalPassword}
                               onChange={handleModalPasswordChange}
-                              style={{ backgroundColor: "black", border: "none", borderRadius: "8px", padding: "0.3rem 0.5rem", color: "whitesmoke" }}
+                              style={{ backgroundColor: "var(--gh-input)", border: "1px solid var(--gh-border)", borderRadius: "6px", padding: "0.3rem 0.5rem", color: "var(--gh-text)" }}
                             />
                             <i style={{
-                              color: "#808080",
+                              color: "var(--gh-muted)",
                               fontSize: "9.5px",
                               textAlign: "right",
                               display: "inline-block",

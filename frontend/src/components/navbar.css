@@ -1,11 +1,11 @@
 nav {
   display: flex;
   padding: 1rem 2rem;
-  color: #f1f6fd;
+  color: var(--gh-text);
   justify-content: space-between;
   align-items: center;
-  border-bottom: 0.8px solid rgba(255, 255, 255, 0.781);
-  background-color: #0c1110;
+  border-bottom: 0.8px solid var(--gh-border);
+  background-color: var(--gh-bg);
 }
 
 nav img {
@@ -20,15 +20,16 @@ nav div {
 }
 
 nav h3 {
-  color: #f1f6fd;
+  color: var(--gh-text);
   margin-bottom: 0;
-  font-size: 22px;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 nav p {
   font-size: 13px;
-  font-weight: bold;
-  color: #f1f6fd;
+  font-weight: 600;
+  color: var(--gh-text);
   margin-bottom: 3px;
 }
 
@@ -37,26 +38,29 @@ nav .navbar-link {
 }
 
 nav .create-repo-btn {
-  padding: 4px 13px;
-  background-color: rgb(1, 159, 1);
-  border: none;
+  padding: 5px 14px;
+  background-color: var(--gh-green);
+  color: var(--gh-text);
+  border: 1px solid rgba(240, 246, 252, 0.1);
   border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
 }
 nav .create-repo-btn:active {
-  background-color: green;
+  background-color: var(--gh-green);
 }
 nav .create-repo-btn:hover {
-  background-color: green;
+  background-color: var(--gh-green-hover);
 }
 
 nav .profile-btn {
   width: 28px;
   height: 28px;
-  background-color: #863bcb;
-  border: none;
+  background-color: var(--gh-panel);
+  border: 1px solid var(--gh-border);
   border-radius: 50%;
-  color: #f1f2fd;
+  color: var(--gh-text);
   cursor: pointer;
 }
 
@@ -65,9 +69,9 @@ nav .profile-btn svg {
 }
 
 .dropdown .dropdown-menu {
-  background: #0c1110;
+  background: var(--gh-bg);
   padding: 6px;
-  border: 1.5px solid #20272d;
+  border: 1.5px solid var(--gh-border);
   font-size: 13px;
   font-weight: 500;
   border-radius: 8px;
@@ -75,7 +79,7 @@ nav .profile-btn svg {
 
 .dropdown-menu .dropdown-item {
   font-size: small;
-  color: #888888;
+  color: var(--gh-muted);
   border-radius: 6px;
   padding: 4px 15px 4px 6px;
   display: flex;
@@ -85,24 +89,24 @@ nav .profile-btn svg {
 }
 
 .dropdown-menu .dropdown-item svg path {
-  fill: #888888;
+  fill: var(--gh-muted);
 }
 
 .dropdown-menu .dropdown-item:hover {
-  color: whitesmoke;
-  background-color: rgba(128, 128, 128, 0.184);
+  color: var(--gh-text);
+  background-color: rgba(110, 118, 129, 0.15);
 }
 .dropdown-menu .logout-btn:hover {
-  background-color: rgba(224, 36, 36, 0.947);
-  color: whitesmoke;
+  background-color: var(--gh-danger);
+  color: var(--gh-text);
 }
 
 .dropdown-menu .dropdown-item:hover svg path {
-  fill: whitesmoke;
+  fill: var(--gh-text);
 }
 
 nav .profile-btn:hover {
-  background-color: blueviolet;
+  border-color: var(--gh-link);
 }
 
 .profile-btn.dropdown-toggle::after {

@@ -1,9 +1,8 @@
 .login-wrapper {
-  color: #f1f6fd;
+  color: var(--gh-text);
   height: 100vh;
   width: 100vw;
-  font-family: "Asap", sans-serif;
-  background-color: #0c1110;
+  background-color: var(--gh-bg);
 }
 
 .login-logo-container {
@@ -31,8 +30,9 @@
   padding: 48px 0px;
   width: 364px;
   min-height: 300px;
-  border-radius: 15px;
-  background-color: #161a23;
+  border-radius: 8px;
+  border: 1px solid var(--gh-border);
+  background-color: var(--gh-panel);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,12 +43,12 @@
 .input {
   width: 250px;
   height: 32px;
-  background-color: #0c1110;
-  border-radius: 5px;
+  background-color: var(--gh-input);
+  border-radius: 6px;
   padding: 0 1rem;
-  border: 0.5px solid #f1f6fd;
+  border: 1px solid var(--gh-border);
   font-size: 0.77rem;
-  color: whitesmoke;
+  color: var(--gh-text);
   transition:
     border-color 0.3s cubic-bezier(0.25, 0.01, 0.25, 1) 0s,
     color 0.3s cubic-bezier(0.25, 0.01, 0.25, 1) 0s,
@@ -60,35 +60,35 @@
   margin-bottom: 0.3rem;
   font-size: 0.75rem;
   font-weight: bold;
-  color: #f1f6fd;
+  color: var(--gh-text);
   transition: color 0.3s cubic-bezier(0.25, 0.01, 0.25, 1) 0s;
 }
 
 .input:hover,
 .input:focus {
-  border-color: lightblue;
+  border-color: var(--gh-link);
 }
 
 .submit-btn {
-  background-color: #238636;
-  border: none;
+  background-color: var(--gh-green);
+  border: 1px solid rgba(240, 246, 252, 0.1);
   width: 250px;
-  border-radius: 5px;
+  border-radius: 6px;
   height: 35px;
-  color: #f1f6fd;
-  font-weight: 700;
+  color: var(--gh-text);
+  font-weight: 600;
   padding: 0 1rem;
 }
 
 .submit-btn:hover {
-  background-color: #499458;
+  background-color: var(--gh-green-hover);
   cursor: pointer;
 }
 
 .passkey-signin {
-  border: 0.5px solid #e6e9ed;
+  border: 1px solid var(--gh-border);
   width: 360px;
-  border-radius: 10px;
+  border-radius: 8px;
   height: 90px;
   margin: 10px auto;
 }
@@ -103,7 +103,7 @@
 
 .passkey,
 .signup {
-  color: #2b7df7;
+  color: var(--gh-link);
   cursor: pointer;
 }
 
@@ -115,15 +115,16 @@
 }
 
 .login-heading-text {
-  font-size: 24px;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .pass-box {
   width: 364px;
   height: auto;
-  border-radius: 15px;
+  border-radius: 8px;
   padding: 17px 10px;
-  border: 1px solid #3d3d3d;
+  border: 1px solid var(--gh-border);
   font-size: 12px;
   font-weight: 600;
   display: flex;

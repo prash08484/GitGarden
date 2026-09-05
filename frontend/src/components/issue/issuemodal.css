@@ -12,26 +12,26 @@
 }
 
 .custom-modal {
-  background-color: #0c1110;
-  color: #d1d5db;
+  background-color: var(--gh-panel);
+  color: var(--gh-text);
   border-radius: 8px;
   max-width: 500px;
   width: 100%;
-  border: 0.8px solid #808080ac;
+  border: 1px solid var(--gh-border);
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 0.8px solid #808080ac;
+  border-bottom: 0.8px solid var(--gh-border);
   padding: 0.8rem;
 }
 
 .modal-header button {
   font-size: 9px;
   padding: 0.1rem 0.3rem;
-  background-color: #808080ac;
+  background-color: var(--gh-border);
   border: none;
 }
 
@@ -85,22 +85,22 @@
   justify-content: center;
   border-radius: 6px;
   font-weight: 500;
-  color: gray;
-  background-color: #0c1110;
-  border: 1px solid gray;
+  color: var(--gh-muted);
+  background-color: var(--gh-bg);
+  border: 1px solid var(--gh-border);
 }
 
 .custom-modal .modal-footer #cancel-btn:hover {
-  background-color: rgba(128, 128, 128, 0.184);
-  color: #d1d5db;
+  background-color: rgba(110, 118, 129, 0.15);
+  color: var(--gh-text);
 }
 
 .edit-repo-form div input,
 .edit-repo-form div textarea {
-  background-color: black;
+  background-color: var(--gh-input);
   border: none;
   padding: 8px 10px;
-  color: #d1d5db;
+  color: var(--gh-text);
   font-size: 12px;
   border-radius: 8px;
 }
@@ -109,7 +109,7 @@
   display: flex;
   flex-direction: column;
   align-items: start;
-  border-bottom: 0.8px solid #808080ac;
+  border-bottom: 0.8px solid var(--gh-border);
   padding: 0.75rem 1rem;
 }
 
@@ -121,7 +121,7 @@
 .modal-close-btn {
   background: inherit !important;
   border: none;
-  color: #d1d5db;
+  color: var(--gh-text);
   font-size: 16px;
   cursor: pointer;
   padding: 0;
@@ -129,7 +129,7 @@
 }
 
 .modal-close-btn:hover {
-  color: whitesmoke;
+  color: var(--gh-text);
 }
 
 .issue-status-badge {
@@ -142,15 +142,15 @@
 }
 
 .badge-open {
-  background-color: rgba(22, 101, 52, 0.3);
-  color: #4ade80;
-  border-color: #4ade8066;
+  background-color: rgba(46, 160, 67, 0.15);
+  color: var(--gh-green-hover);
+  border-color: rgba(46, 160, 67, 0.4);
 }
 
 .badge-closed {
-  background-color: rgba(128, 128, 128, 0.15);
-  color: #9ca3af;
-  border-color: #9ca3af55;
+  background-color: rgba(110, 118, 129, 0.15);
+  color: var(--gh-muted);
+  border-color: rgba(139, 148, 158, 0.4);
 }
 
 .modal-body {
@@ -161,12 +161,12 @@
   font-size: 15px;
   font-weight: 500;
   margin: 0 0 4px;
-  color: whitesmoke;
+  color: var(--gh-text);
 }
 
 .issue-description {
   font-size: 13px;
-  color: #9ca3af;
+  color: var(--gh-muted);
   margin: 0 0 16px;
 }
 
@@ -184,28 +184,28 @@
 }
 
 .meta-label {
-  color: #6b7280;
+  color: var(--gh-muted);
   min-width: 60px;
   font-weight: 500;
 }
 
 .meta-value {
-  color: #d1d5db;
+  color: var(--gh-text);
 }
 
 .meta-mono {
   font-family: monospace;
   font-size: 11px;
-  color: #9ca3af;
+  color: var(--gh-muted);
 }
 
 .meta-link {
-  color: #5b8dee !important;
+  color: var(--gh-link) !important;
   font-weight: 500;
   text-decoration: none;
 }
 
 .meta-link:hover {
   text-decoration: underline;
-  text-decoration-color: #5b8dee88;
+  text-decoration-color: var(--gh-link);
 }

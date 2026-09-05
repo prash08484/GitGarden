@@ -7,9 +7,9 @@
   flex-direction: column;
   margin-inline: auto;
   gap: 1rem;
-  color: whitesmoke;
+  color: var(--gh-text);
   padding-bottom: 1rem;
-  background-color: #0c1110;
+  background-color: var(--gh-bg);
 }
 
 .createRepoForm label,
@@ -32,11 +32,11 @@
 .createRepoForm input {
   margin-top: 0.5rem;
   font-size: 13px;
-  background-color: black;
-  border: none;
-  border-radius: 8px;
+  background-color: var(--gh-input);
+  border: 1px solid var(--gh-border);
+  border-radius: 6px;
   padding: 0.5rem;
-  color: whitesmoke;
+  color: var(--gh-text);
 }
 
 .createRepoForm .firstInput {
@@ -46,7 +46,7 @@
 .line {
   border: none;
   height: 1px;
-  background: #1b232f;
+  background: var(--gh-border);
 }
 
 .visibilityLabel {
@@ -62,25 +62,25 @@
   margin-top: 0;
   width: 8px !important;
   height: 8px !important;
-  border: 1px solid rgba(245, 245, 245, 0.171);
+  border: 1px solid var(--gh-border);
   border-radius: 10px;
   cursor: pointer;
   position: relative;
 }
 
 .visibilityLabel input[type="radio"]:checked {
-  background-color: rgb(1, 177, 1); /* ✅ turns green when checked */
-  border-color: rgb(1, 87, 1);
+  background-color: var(--gh-green);
+  border-color: var(--gh-green);
 }
 
 .submit-btn {
-  background-color: #238636;
-  border: none;
+  background-color: var(--gh-green);
+  border: 1px solid rgba(240, 246, 252, 0.1);
   width: 250px;
-  border-radius: 5px;
+  border-radius: 6px;
   height: 35px;
-  color: #f1f6fd;
-  font-weight: 700;
+  color: var(--gh-text);
+  font-weight: 600;
   padding: 0 1rem;
 }
 

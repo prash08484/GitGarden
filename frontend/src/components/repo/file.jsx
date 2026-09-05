@@ -15,7 +15,7 @@ const FileList = ({ files }) => {
         {selectedFile && (
           <>
             <h3>{selectedFile}</h3>
-            <pre style={{ background: "#0c1110", color: "#fff", padding: "10px" }}>
+            <pre style={{ background: "var(--gh-panel)", border: "1px solid var(--gh-border)", color: "var(--gh-text)", padding: "10px", borderRadius: "6px" }}>
               {fileContent}
             </pre>
           </>

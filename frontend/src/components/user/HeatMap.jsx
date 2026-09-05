@@ -21,9 +21,21 @@ const generateActivityData = (startDate, endDate) => {
 
 const getPanelColors = (maxCount) => {
   const colors = {};
+  // GitHub's classic 5-step contribution-graph green scale
+  const steps = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
+
+  if (!maxCount || maxCount <= 0) {
+    colors[0] = steps[0];
+    return colors;
+  }
+
   for (let i = 0; i <= maxCount; i++) {
-    const greenValue = Math.floor((i / maxCount) * 255);
-    colors[i] = `rgb(0, ${greenValue}, 0)`;
+    const ratio = i / maxCount;
+    const stepIndex = Math.min(
+      steps.length - 1,
+      Math.round(ratio * (steps.length - 1))
+    );
+    colors[i] = steps[stepIndex];
   }
 
   return colors;
@@ -50,7 +62,7 @@ const HeatMapProfile = () => {
 
   return (
     <div className="HeatMapWrapper">
-      <h4>Recent Contributions</h4>
+      <h4 style={{ fontSize: "14px", fontWeight: 600, marginBottom: "0.75rem", color: "var(--gh-text)" }}>Recent Contributions</h4>
       <HeatMap
         className="HeatMapProfile"
         value={activityData}

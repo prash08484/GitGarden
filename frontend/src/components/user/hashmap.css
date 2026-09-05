@@ -6,5 +6,5 @@
 
 .HeatMapProfile {
   display: inline-block;
-  color: whitesmoke !important;
+  color: var(--gh-text) !important;
 }
