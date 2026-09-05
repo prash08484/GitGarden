@@ -1,63 +1,51 @@
-import {s3,S3_BUCKET} from "../config/aws-config.js";
-import User from "../models/user.model.js";
-import mongoose from "mongoose";
+import { buildRepoFileKey, InvalidPathError } from "../utils/s3Key.js";
+import { s3, S3_BUCKET } from "../config/aws-config.js";
 import { v4 as uuidv4 } from 'uuid';
-import bcrypt from "bcryptjs";
 
-export const fetchRepoFiles = async (repoName) => {
-
+export const fetchRepoFiles = async (repositoryId) => {
+  const prefix = `repositories/${repositoryId}/`;
   try {
-    const params = {
-      Bucket: S3_BUCKET,
-      Prefix: `${repoName}/`,
-    };
+    const data = await s3.listObjectsV2({ Bucket: S3_BUCKET, Prefix: prefix }).promise();
 
-    const data = await s3.listObjectsV2(params).promise();
-
-    const files = data.Contents
-      .filter(item => item.Key !== `${repoName}/commit.json`)
+    const files = (data.Contents || [])
+      .filter(item => item.Key !== `${prefix}commit.json`)
       .map(item => ({
-      key: item.Key,
-      fileName: item.Key.split("/").pop(),
-      size: item.Size,
-      lastModified: item.LastModified,
+        path: item.Key.slice(prefix.length), // "src/routes/weather.js", not just the basename
+        type: "file",
+        size: item.Size,
+        lastModified: item.LastModified,
       }));
-    
-    const commitFile = data.Contents.find(item => item.Key === `${repoName}/commit.json`);
-    let lastUpdated;
-    let commitMsg;
+
+    const commitFile = (data.Contents || []).find(item => item.Key === `${prefix}commit.json`);
+    let lastUpdated, commitMsg;
     if (commitFile) {
-      const commitData = await s3.getObject({
-        Bucket: S3_BUCKET,
-        Key: `${repoName}/commit.json`,
-      }).promise();
+      const commitData = await s3.getObject({ Bucket: S3_BUCKET, Key: `${prefix}commit.json` }).promise();
       const commits = JSON.parse(commitData.Body.toString("utf-8"));
-      lastUpdated = commits[commits.length - 1].updatedAt;
-      commitMsg = commits[commits.length - 1].message;
+      lastUpdated = commits.at(-1)?.updatedAt;
+      commitMsg = commits.at(-1)?.message;
     }
-
-
-    return {files, lastUpdated, commitMsg};
+    return { files, lastUpdated, commitMsg };
   } catch (err) {
     console.error("Error fetching repo files:", err);
-    return err;
+    return { files: [], lastUpdated: null, commitMsg: null };
   }
 };
 
+
 export const fetchRepoFileContent = async (req, res) => {
+  const { repositoryId, path: relativePath } = req.query;
 
-  const {key} = req.body;
-  
+  let key;
   try {
-    const params = {
-      Bucket: S3_BUCKET,
-      Key: key,
-    };
+    key = buildRepoFileKey(repositoryId, relativePath);
+  } catch (err) {
+    if (err instanceof InvalidPathError) return res.status(400).json({ error: err.message });
+    throw err;
+  }
 
-    const data = await s3.getObject(params).promise();
-    const content = data.Body.toString("utf-8");
-    res.json({ content });
-
+  try {
+    const data = await s3.getObject({ Bucket: S3_BUCKET, Key: key }).promise();
+    res.json({ content: data.Body.toString("utf-8") });
   } catch (err) {
     console.error("Error fetching file content:", err);
     res.status(500).json({ error: "Failed to fetch file content" });
@@ -65,53 +53,30 @@ export const fetchRepoFileContent = async (req, res) => {
 };
 
 export const updateRepoFileContent = async (req, res) => {
-  
   try {
-    const {reponame, filename} = req.params;
-    const {content, commitName, password, userId} = req.body;
 
-    const user = await User.findById(userId);
-    const hashedPassword = user.password;
+    const { id: repositoryId } = req.params; // was: const { repositoryId } = req.params;
+    const { path: relativePath, content, commitName } = req.body;
 
-    const isMatch = await bcrypt.compare(password, hashedPassword);
-    if (!isMatch) {
-      return res.status(401).json({ error: "Invalid password" });
-    }
+    const key = buildRepoFileKey(repositoryId, relativePath);
+    const commitKey = `repositories/${repositoryId}/commit.json`;
 
-    // commit.json
-    const commitFile = await s3.getObject({
-      Bucket: S3_BUCKET,
-      Key: `${reponame}/commit.json`,
-    }).promise();
-
+    const commitFile = await s3.getObject({ Bucket: S3_BUCKET, Key: commitKey }).promise();
     const commitData = JSON.parse(commitFile.Body.toString("utf-8"));
     commitData.push({
       id: uuidv4(),
       operation: "push",
       message: commitName,
       updatedAt: new Date().toISOString(),
-      OperationFiles: [filename]
-    })
+      OperationFiles: [relativePath],
+    });
+    await s3.putObject({ Bucket: S3_BUCKET, Key: commitKey, Body: JSON.stringify(commitData), ContentType: "application/json" }).promise();
+    await s3.putObject({ Bucket: S3_BUCKET, Key: key, Body: content, ContentType: "text/plain" }).promise();
 
-    s3.putObject({
-      Bucket: S3_BUCKET,
-      Key: `${reponame}/commit.json`,
-      Body: JSON.stringify(commitData),
-      ContentType: "application/json",
-    }).promise();
-
-    // file
-    const params = {
-      Bucket: S3_BUCKET,
-      Key: `${reponame}/${filename}`,
-      Body: content,
-      ContentType: "text/plain",
-    };
-
-    await s3.putObject(params).promise();
     res.json({ message: "File updated successfully" });
   } catch (err) {
+    if (err instanceof InvalidPathError) return res.status(400).json({ error: err.message });
     console.error(err);
     res.status(500).send("Error updating file");
   }
-}
+};

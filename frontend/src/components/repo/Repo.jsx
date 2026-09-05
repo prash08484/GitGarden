@@ -36,24 +36,12 @@ function Repo() {
         user: currUser
     });
 
-
     const handleFileClick = async (file) => {
-
-        setSelectedFile(file.fileName);
-
-        const content = await fetch(`${url}/file/content`, {
-            method: "POST",
-            headers: authHeaders(),
-            body: JSON.stringify({ key: file.key })
-        });
-        // const content = await fetch(`${url}/file/content`, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify({ key: file.key })
-        // });
-
+        setSelectedFile(file.path); // was file.fileName
+        const content = await fetch(
+            `${url}/file/content?repositoryId=${repo._id}&path=${encodeURIComponent(file.path)}`,
+            { headers: authHeaders() } // GET, no body
+        );
         const data = await content.json();
         setFileContent(data.content);
         setToBeFileContent(data.content);
@@ -83,12 +71,17 @@ function Repo() {
         }
 
         try {
-            const res = await fetch(`${url}/file/update/${repo.name}/${selectedFile}`, {
+            // const res = await fetch(`${url}/file/update/${repo.name}/${selectedFile}`, {
+            //     method: "PUT",
+            //     headers: {
+            //         "Content-Type": "application/json"
+            //     },
+            //     body: JSON.stringify({ content: toBeFileContent, commitName: commitName, password: userPassword, userId: currUser })
+            // });
+            const res = await fetch(`${url}/file/update/${repo._id}`, {
                 method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ content: toBeFileContent, commitName: commitName, password: userPassword, userId: currUser })
+                headers: authHeaders(),
+                body: JSON.stringify({ path: selectedFile, content: toBeFileContent, commitName }),
             });
 
             if (res.status === 200) toast.success("File updated successfully!")

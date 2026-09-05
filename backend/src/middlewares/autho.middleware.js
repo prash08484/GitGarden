@@ -24,6 +24,7 @@ export const authorizeSelf = (paramName = "id") => (req, res, next) => {
 
 export const authorizeRepositoryOwner = async (req, res, next) => {
   try {
+    // const repository = await Repository.findById(req.params.id);
     const repository = await Repository.findById(req.params.id);
     if (!repository) {
       return res.status(404).json({ error: "Repository not found" });

@@ -1,19 +1,36 @@
-import fs from 'fs/promises'
-import path from 'path'
-import {s3, S3_BUCKET} from '../../config/aws-config.js'
-import { isUserVerified, isRepoVerified } from '../../utils/helper.js'
+import fs from 'fs/promises';
+import path from 'path';
+import { s3, S3_BUCKET } from '../../config/aws-config.js';
+import { isUserVerified } from '../../utils/helper.js';
+import Repository from '../../models/repo.model.js';
+import { buildRepoFileKey } from '../../utils/s3Key.js';
+
+const walkFiles = async (dir, base = "") => {
+    const entries = await fs.readdir(dir, { withFileTypes: true });
+    let out = [];
+    for (const entry of entries) {
+        const rel = base ? `${base}/${entry.name}` : entry.name;
+        if (entry.isDirectory()) {
+            out = out.concat(await walkFiles(path.join(dir, entry.name), rel));
+        } else {
+            out.push(rel);
+        }
+    }
+    return out;
+};
 
 const pushRepo = async (username, repoName) => {
 
     const verifiedUser = await isUserVerified(username);
-    const verifiedRepo = await isRepoVerified(repoName);
+    const repository = await Repository.findOne({ name: repoName });
 
-    const verified = verifiedUser && verifiedRepo;
-    if (!verified) {
-      console.log('User or repo not verified.');
-      console.log(`Please make sure you have created an account with name ${username}, as well as the repo with name ${repoName}.`);
-      return;
+    if (!verifiedUser || !repository) {
+        console.log('User or repo not verified.');
+        console.log(`Please make sure you have created an account with name ${username}, as well as the repo with name ${repoName}.`);
+        return;
     }
+
+    const repositoryId = repository._id.toString();
 
     const repoPath = path.resolve(process.cwd(), '.repoGit');
     const commitPath = path.join(repoPath, 'commits');
@@ -34,11 +51,10 @@ const pushRepo = async (username, repoName) => {
         );
 
         dirsWithTimestamp.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-        
-        for (const {dir} of dirsWithTimestamp) {
+
+        for (const { dir } of dirsWithTimestamp) {
 
             const dirPath = path.join(commitPath, dir);
-            const dirfiles = await fs.readdir(dirPath);
 
             const dirCommitFilePath = path.join(dirPath, "commit.json");
             const commitFileContent = await fs.readFile(dirCommitFilePath, "utf-8");
@@ -47,27 +63,37 @@ const pushRepo = async (username, repoName) => {
             const newEntry = { ...commitData.find(c => c.id === dir), operation: 'push', updatedAt: new Date().toISOString() };
             commitData.push(newEntry);
             await fs.writeFile(dirCommitFilePath, JSON.stringify(commitData, null, 2));
-            
+
             const prevCommitDirPath = path.join(prevCommitPath, dir);
             await fs.mkdir(prevCommitDirPath, { recursive: true });
 
-            for (const file of dirfiles) {
-                const filePath = path.join(dirPath, file);
+            // walk the whole commit dir (including nested folders) instead of a flat readdir
+            const relativeFiles = await walkFiles(dirPath);
+
+            for (const relPath of relativeFiles) {
+                const filePath = path.join(dirPath, relPath);
                 const fileContent = await fs.readFile(filePath);
+
+                // validated, repo-scoped key: repositories/<repositoryId>/<relPath>
+                const key = buildRepoFileKey(repositoryId, relPath);
+
                 const params = {
                     Bucket: S3_BUCKET,
-                    Key: `${repoName}/${file}`,
+                    Key: key,
                     Body: fileContent,
                 };
 
                 await s3.upload(params).promise();
 
-                await fs.copyFile(filePath, path.join(prevCommitDirPath, file));
+                const prevDestPath = path.join(prevCommitDirPath, relPath);
+                await fs.mkdir(path.dirname(prevDestPath), { recursive: true }); // preserve subfolders locally too
+                await fs.copyFile(filePath, prevDestPath);
                 await fs.unlink(filePath);
             }
 
-            await fs.rmdir(dirPath);
-            
+            // recursive: after unlinking files, nested (now-empty) subdirectories remain
+            await fs.rm(dirPath, { recursive: true, force: true });
+
         }
         console.log('All commits pushed to S3 successfully.');
 

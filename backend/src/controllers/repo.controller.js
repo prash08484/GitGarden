@@ -1,5 +1,6 @@
 import Repository from "../models/repo.model.js";
 import User from "../models/user.model.js";
+import { fetchRepoFiles } from "./files.controller.js";
 
 export const createRepo = async (req, res) => {
   const { name, description, visibility } = req.body;
@@ -71,25 +72,21 @@ export const fetchRepoByName = async (req, res) => {
   }
 };
 
+
 export const fetchRepoById = async (req, res) => {
   const { id } = req.params;
-
   try {
-    const repository = await Repository.findById(id)
-      .populate("owner")
-      .populate("issues");
+    const repository = await Repository.findById(id).populate("owner").populate("issues");
+    if (!repository) return res.status(404).json({ error: "Repository not found" });
 
-    if (!repository) {
-      return res.status(404).json({ error: "Repository not found" });
-    }
-
-    res.status(200).json(repository);
+    const { files, lastUpdated, commitMsg } = await fetchRepoFiles(repository._id.toString());
+    res.status(200).json({ repository, files, lastUpdated, commitMsg });
   } catch (err) {
     console.error("Error during repository fetching:", err.message);
     res.status(500).json({ error: "Server error" });
   }
 };
-
+ 
 export const updateRepoById = async (req, res) => {
   const { id } = req.params;
   const { name, description, visibility } = req.body;
