@@ -1,105 +1,110 @@
 import fs from 'fs/promises';
 import path from 'path';
-import { s3, S3_BUCKET } from '../../config/aws-config.js';
-import { isUserVerified } from '../../utils/helper.js';
-import Repository from '../../models/repo.model.js';
-import { buildRepoFileKey } from '../../utils/s3Key.js';
+import { getRepoPaths, walkFiles, readLocalConfig } from './repoConfig.js';
 
-const walkFiles = async (dir, base = "") => {
-    const entries = await fs.readdir(dir, { withFileTypes: true });
-    let out = [];
-    for (const entry of entries) {
-        const rel = base ? `${base}/${entry.name}` : entry.name;
-        if (entry.isDirectory()) {
-            out = out.concat(await walkFiles(path.join(dir, entry.name), rel));
-        } else {
-            out.push(rel);
-        }
-    }
-    return out;
+const API_BASE_URL = process.env.GITGARDEN_API_URL || 'http://localhost:5000';
+
+// The CLI no longer talks to S3 (or Mongo) directly — it hands the commit
+// off to the backend over HTTP. The backend-side /api/repo/push route/controller
+// that actually receives this and writes to S3 doesn't exist yet; this is the
+// client half of that contract, ready to be wired up.
+const sendPushToBackend = async (repositoryId, commitPayload) => {
+  const res = await fetch(`${API_BASE_URL}/api/repo/push`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ repositoryId, commit: commitPayload }),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Backend responded with ${res.status}`);
+  }
+  return res.json();
 };
 
-const pushRepo = async (username, repoName) => {
+// push: sends every locally committed (not-yet-pushed) commit to the backend,
+// oldest first, identified only by the repositoryId stored in local config.
+const pushRepo = async () => {
+  const { commitsPath, prevCommitsPath } = getRepoPaths();
 
-    const verifiedUser = await isUserVerified(username);
-    const repository = await Repository.findOne({ name: repoName });
+  let config;
+  try {
+    config = await readLocalConfig();
+  } catch {
+    console.log('Repo is not initialized. Run "init" first.');
+    return;
+  }
 
-    if (!verifiedUser || !repository) {
-        console.log('User or repo not verified.');
-        console.log(`Please make sure you have created an account with name ${username}, as well as the repo with name ${repoName}.`);
-        return;
+  if (!config.repositoryId) {
+    console.log('This repo is not linked to a repository yet. Re-run "init <repositoryId>".');
+    return;
+  }
+  const { repositoryId } = config;
+
+  try {
+    await fs.mkdir(prevCommitsPath, { recursive: true });
+    const dirs = await fs.readdir(commitsPath);
+
+    if (dirs.length === 0) {
+      console.log('No commits to push.');
+      return;
     }
 
-    const repositoryId = repository._id.toString();
+    const dirsWithTimestamp = await Promise.all(
+      dirs.map(async (dir) => {
+        const commitFilePath = path.join(commitsPath, dir, 'commit.json');
+        const commitData = JSON.parse(await fs.readFile(commitFilePath, 'utf-8'));
+        const entry = commitData.find((c) => c.id === dir);
+        return { dir, createdAt: entry?.createdAt ?? null };
+      })
+    );
+    dirsWithTimestamp.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
-    const repoPath = path.resolve(process.cwd(), '.repoGit');
-    const commitPath = path.join(repoPath, 'commits');
-    const prevCommitPath = path.join(repoPath, 'prevCommits');
+    for (const { dir } of dirsWithTimestamp) {
+      const dirPath = path.join(commitsPath, dir);
+      const commitFilePath = path.join(dirPath, 'commit.json');
+      const commitData = JSON.parse(await fs.readFile(commitFilePath, 'utf-8'));
+      const commitEntry = commitData.find((c) => c.id === dir) ?? {};
 
-    try {
-        await fs.mkdir(prevCommitPath, { recursive: true });
-        const dirs = await fs.readdir(commitPath);
+      if (commitEntry.repositoryId && commitEntry.repositoryId !== repositoryId) {
+        console.log(`Skipping commit ${dir}: belongs to a different repository.`);
+        continue;
+      }
 
-        const dirsWithTimestamp = await Promise.all(
-            dirs.map(async (dir) => {
-                const dirCommitFilePath = path.join(commitPath, dir, 'commit.json');
-                const commitFileContent = await fs.readFile(dirCommitFilePath, 'utf-8');
-                const commitData = JSON.parse(commitFileContent);
-                const commitEntry = commitData.find((c) => c.id === dir);
-                return { dir, createdAt: commitEntry?.createdAt ?? null };
-            })
-        );
+      const relativeFiles = await walkFiles(dirPath);
+      const files = [];
+      for (const relPath of relativeFiles) {
+        if (relPath === 'commit.json') continue;
+        const content = await fs.readFile(path.join(dirPath, relPath), 'utf-8');
+        files.push({ relPath, content });
+      }
 
-        dirsWithTimestamp.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+      try {
+        await sendPushToBackend(repositoryId, { ...commitEntry, files });
+      } catch (apiErr) {
+        console.error(`Could not push commit ${dir} yet (${apiErr.message}). Leaving it staged locally so nothing is lost.`);
+        continue;
+      }
 
-        for (const { dir } of dirsWithTimestamp) {
+      const newEntry = { ...commitEntry, operation: 'push', updatedAt: new Date().toISOString() };
+      commitData.push(newEntry);
+      await fs.writeFile(commitFilePath, JSON.stringify(commitData, null, 2));
 
-            const dirPath = path.join(commitPath, dir);
+      const prevCommitDirPath = path.join(prevCommitsPath, dir);
+      await fs.mkdir(prevCommitDirPath, { recursive: true });
 
-            const dirCommitFilePath = path.join(dirPath, "commit.json");
-            const commitFileContent = await fs.readFile(dirCommitFilePath, "utf-8");
-            const commitData = JSON.parse(commitFileContent);
+      for (const relPath of relativeFiles) {
+        const src = path.join(dirPath, relPath);
+        const dest = path.join(prevCommitDirPath, relPath);
+        await fs.mkdir(path.dirname(dest), { recursive: true }); // preserve subfolders locally too
+        await fs.copyFile(src, dest);
+      }
 
-            const newEntry = { ...commitData.find(c => c.id === dir), operation: 'push', updatedAt: new Date().toISOString() };
-            commitData.push(newEntry);
-            await fs.writeFile(dirCommitFilePath, JSON.stringify(commitData, null, 2));
-
-            const prevCommitDirPath = path.join(prevCommitPath, dir);
-            await fs.mkdir(prevCommitDirPath, { recursive: true });
-
-            // walk the whole commit dir (including nested folders) instead of a flat readdir
-            const relativeFiles = await walkFiles(dirPath);
-
-            for (const relPath of relativeFiles) {
-                const filePath = path.join(dirPath, relPath);
-                const fileContent = await fs.readFile(filePath);
-
-                // validated, repo-scoped key: repositories/<repositoryId>/<relPath>
-                const key = buildRepoFileKey(repositoryId, relPath);
-
-                const params = {
-                    Bucket: S3_BUCKET,
-                    Key: key,
-                    Body: fileContent,
-                };
-
-                await s3.upload(params).promise();
-
-                const prevDestPath = path.join(prevCommitDirPath, relPath);
-                await fs.mkdir(path.dirname(prevDestPath), { recursive: true }); // preserve subfolders locally too
-                await fs.copyFile(filePath, prevDestPath);
-                await fs.unlink(filePath);
-            }
-
-            // recursive: after unlinking files, nested (now-empty) subdirectories remain
-            await fs.rm(dirPath, { recursive: true, force: true });
-
-        }
-        console.log('All commits pushed to S3 successfully.');
-
-    } catch(e) {
-        console.log('Error pushing to S3: ', e);
+      await fs.rm(dirPath, { recursive: true, force: true });
+      console.log(`Pushed commit ${dir}.`);
     }
-}
+  } catch (e) {
+    console.log('Error pushing commits:', e);
+  }
+};
 
 export default pushRepo;

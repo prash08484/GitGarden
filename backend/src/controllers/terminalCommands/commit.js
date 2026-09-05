@@ -1,37 +1,50 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
+import { getRepoPaths, walkFiles, readLocalConfig } from './repoConfig.js';
 
+// commit <msg>: snapshots everything currently staged, preserving directory
+// structure, then clears staging. Refuses to create an empty commit.
 const commitRepo = async (msg) => {
-  const repoPath = path.resolve(process.cwd(), '.repoGit');
-  const stagingPath = path.join(repoPath, 'staging');
-  const commitsPath = path.join(repoPath, 'commits');
+  const { commitsPath, stagingPath } = getRepoPaths();
 
   try {
+    const stagedFiles = await walkFiles(stagingPath);
+
+    if (stagedFiles.length === 0) {
+      console.error('Nothing staged to commit. Use "add" first.');
+      return;
+    }
+
+    const config = await readLocalConfig().catch(() => ({ repositoryId: null }));
+
     const commitID = uuidv4();
     const commitDir = path.join(commitsPath, commitID);
     await fs.mkdir(commitDir, { recursive: true });
 
-    const files = await fs.readdir(stagingPath);
-    const filePath = path.join(commitDir, 'commit.json');
-
+    const now = new Date().toISOString();
     const metadata = {
       id: commitID,
+      repositoryId: config.repositoryId ?? null,
       operation: 'commit',
       message: msg,
-      updatedAt: new Date().toISOString(),
-      OperationFiles: files,
+      createdAt: now,   // immutable: when the commit was made
+      updatedAt: now,   // bumped on push/pull/revert operations
+      OperationFiles: stagedFiles,
     };
 
-    await fs.writeFile(filePath, JSON.stringify([metadata], null, 2));
+    await fs.writeFile(path.join(commitDir, 'commit.json'), JSON.stringify([metadata], null, 2));
 
-    for (const file of files) {
-      await fs.copyFile(path.join(stagingPath, file), path.join(commitDir, file));
+    for (const relPath of stagedFiles) {
+      const dest = path.join(commitDir, relPath);
+      await fs.mkdir(path.dirname(dest), { recursive: true });
+      await fs.copyFile(path.join(stagingPath, relPath), dest);
     }
 
-    for (const file of files) {
-      await fs.unlink(path.join(stagingPath, file));
-    }
+    // Clear staging fully (recursive), not just the top-level files, since
+    // staged content can now include nested directories.
+    await fs.rm(stagingPath, { recursive: true, force: true });
+    await fs.mkdir(stagingPath, { recursive: true });
 
     console.log(`Commit ${commitID} created with message: "${msg}"`);
   } catch (e) {
