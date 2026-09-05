@@ -3,13 +3,13 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import http from 'http';
-import { Server } from 'socket.io';
+import {Server} from 'socket.io';
 import dotenv from "dotenv";
 dotenv.config();
 
 
 import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
+import {hideBin} from 'yargs/helpers';
 
 
 import { createRouteHandler } from "uploadthing/express";
@@ -22,6 +22,8 @@ import commitRepo from './controllers/terminalCommands/commit.js';
 import pushRepo from './controllers/terminalCommands/push.js';
 import pullRepo from './controllers/terminalCommands/pull.js';
 import revertRepo from './controllers/terminalCommands/revert.js';
+import loginRepo from './controllers/terminalCommands/login.js';
+import logoutRepo from './controllers/terminalCommands/logout.js';
 
 
 import mainRouter from './routes/main.routes.js';
@@ -32,8 +34,8 @@ const startServer = () => {
     const app = express();
     const port = process.env.PORT || 5000;
 
-    app.use(cors({ origin: '*' }));
-    app.use(bodyParser.json({ limit: '10mb' }));
+    app.use(cors({origin: '*'}));
+    app.use(bodyParser.json({limit: '10mb'}));
     app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
     app.use(express.json());
 
@@ -45,8 +47,7 @@ const startServer = () => {
         cors: {
             origin: ["https://github-clone-one-smoky.vercel.app/", "http://localhost:5173"],
             methods: ["GET", "POST"]
-        }
-    }
+        }}
     );
 
     io.on("connection", (socket) => {
@@ -60,7 +61,7 @@ const startServer = () => {
     })
 
     const db = mongoose.connection;
-    db.once('open', async () => {
+    db.once('open', async() => {
         console.log("CRUD operations called!");
     });
 
@@ -78,6 +79,23 @@ yargs(hideBin(process.argv))
             await connectDB();
             startServer();
         }
+    )
+    .command(
+        "login [token]",
+        "Log in with a CLI token generated from Settings on the site",
+        (yargs) => {
+            yargs.positional('token', {
+                describe: 'CLI token (if omitted, you will be prompted to paste it)',
+                type: 'string'
+            });
+        },
+        (argv) => loginRepo(argv.token)
+    )
+    .command(
+        "logout",
+        "Remove the stored CLI token from this machine",
+        {},
+        () => logoutRepo()
     )
     .command(
         "init [repositoryId]",

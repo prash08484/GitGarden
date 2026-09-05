@@ -1,12 +1,15 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { getRepoPaths, walkFiles, readLocalConfig } from './repoConfig.js';
+import { getStoredToken } from '../../utils/globalConfig.js';
 
 const API_BASE_URL = process.env.GITGARDEN_API_URL || 'http://localhost:5000';
 
 const sendPushToBackend = async (repositoryId, commitPayload) => {
-  const token = process.env.GITGARDEN_TOKEN;
-  if (!token) throw new Error('GITGARDEN_TOKEN environment variable is not set.');
+  const token = await getStoredToken();
+  if (!token) {
+    throw new Error('Not logged in. Run "git-garden login" first.');
+  }
 
   const response = await fetch(`${API_BASE_URL}/repo/${repositoryId}/push`, {
     method: 'POST',
@@ -16,10 +19,13 @@ const sendPushToBackend = async (repositoryId, commitPayload) => {
     },
     body: JSON.stringify({
       message: commitPayload.message,
-      files: commitPayload.files.map(f => ({ path: f.relPath, content: f.content })),
+      files: commitPayload.files.map((f) => ({ path: f.relPath, content: f.content })),
     }),
   });
-  if (!response.ok) throw new Error(`Backend responded with ${response.status}`);
+
+  if (!response.ok) {
+    throw new Error(`Backend responded with ${response.status}`);
+  }
   return response.json();
 };
 

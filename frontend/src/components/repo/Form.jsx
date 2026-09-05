@@ -15,6 +15,7 @@ export default function CreateRepoForm() {
         description: "",
         visibility: true,
     });
+    const [createdRepo, setCreatedRepo] = useState(null); // holds the repo right after creation, for the setup screen
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -34,19 +35,11 @@ export default function CreateRepoForm() {
                 body: JSON.stringify(formData),
             });
 
-            // const data = await fetch(`${url}/repo/create`, {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //     },
-            //     body: JSON.stringify(formData),
-            // });
-
             const jsonData = await data.json();
 
             if (data.status == 201) {
                 toast.success("repository created!");
-                navigate("/");
+                setCreatedRepo(jsonData); // show the setup instructions instead of navigating away immediately
             } else {
                 toast.error(jsonData.error || "Error creating repository. Please try again.");
             }
@@ -57,6 +50,37 @@ export default function CreateRepoForm() {
             console.log("error occured during repo creation: ", e);
         }
     };
+
+    if (createdRepo) {
+        const initCommand = `git-garden init ${createdRepo._id}`;
+
+        return (
+            <>
+                <Navbar />
+                <div className="createRepoForm">
+                    <h2 style={{ marginBottom: "0.8rem" }}>{createdRepo.name} created</h2>
+                    <p>
+                        If you haven't already, log in once per machine:
+                    </p>
+                    <pre style={{ userSelect: "all", padding: "0.75rem", background: "#1a1a1a", color: "#f5f5f5", borderRadius: "6px" }}>
+                        git-garden login
+                    </pre>
+                    <p>
+                        Then, from inside your project folder, link it to this repository:
+                    </p>
+                    <pre style={{ userSelect: "all", padding: "0.75rem", background: "#1a1a1a", color: "#f5f5f5", borderRadius: "6px" }}>
+                        {initCommand}
+                    </pre>
+                    <p>
+                        After that, the usual flow works: <code>add</code> → <code>commit</code> → <code>push</code>.
+                    </p>
+                    <button className="submit-btn" onClick={() => navigate(`/repo/${createdRepo._id}`)}>
+                        Go to repository
+                    </button>
+                </div>
+            </>
+        );
+    }
 
     return (
         <>
