@@ -103,3 +103,52 @@ export const updateRepoFileContent = async (req, res) => {
     res.status(500).json({ error: "Error updating file" });
   }
 };
+
+export const pushSnapshot = async (req, res) => {
+  try {
+    const { id: repositoryId } = req.params;
+    const { message, files } = req.body; // files: [{ path, content }]
+
+    if (!Array.isArray(files) || files.length === 0) {
+      return res.status(400).json({ error: "No files provided" });
+    }
+
+    const keys = files.map((f) => {
+      const key = buildRepoFileKey(repositoryId, f.path);
+      assertKeyBelongsToRepo(key, repositoryId);
+      return key;
+    });
+
+    await Promise.all(
+      files.map((f, i) =>
+        s3.putObject({ Bucket: S3_BUCKET, Key: keys[i], Body: f.content, ContentType: "text/plain" }).promise()
+      )
+    );
+
+    const commitKey = `repositories/${repositoryId}/commit.json`;
+    let commitData = [];
+    try {
+      const commitFile = await s3.getObject({ Bucket: S3_BUCKET, Key: commitKey }).promise();
+      commitData = JSON.parse(commitFile.Body.toString("utf-8"));
+    } catch (err) {
+      if (err.code !== "NoSuchKey") throw err;
+    }
+
+    commitData.push({
+      id: uuidv4(),
+      operation: "push",
+      message: message || "push",
+      updatedAt: new Date().toISOString(),
+      updatedBy: req.user._id,
+      OperationFiles: files.map((f) => f.path),
+    });
+
+    await s3.putObject({ Bucket: S3_BUCKET, Key: commitKey, Body: JSON.stringify(commitData), ContentType: "application/json" }).promise();
+
+    res.status(200).json({ message: "Push successful", filesWritten: files.length });
+  } catch (err) {
+    if (err instanceof InvalidPathError) return res.status(400).json({ error: err.message });
+    console.error("Error pushing snapshot:", err);
+    res.status(500).json({ error: "Error pushing snapshot" });
+  }
+};

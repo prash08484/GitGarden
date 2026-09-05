@@ -4,21 +4,23 @@ import { getRepoPaths, walkFiles, readLocalConfig } from './repoConfig.js';
 
 const API_BASE_URL = process.env.GITGARDEN_API_URL || 'http://localhost:5000';
 
-// The CLI no longer talks to S3 (or Mongo) directly — it hands the commit
-// off to the backend over HTTP. The backend-side /api/repo/push route/controller
-// that actually receives this and writes to S3 doesn't exist yet; this is the
-// client half of that contract, ready to be wired up.
 const sendPushToBackend = async (repositoryId, commitPayload) => {
-  const res = await fetch(`${API_BASE_URL}/api/repo/push`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ repositoryId, commit: commitPayload }),
-  });
+  const token = process.env.GITGARDEN_TOKEN;
+  if (!token) throw new Error('GITGARDEN_TOKEN environment variable is not set.');
 
-  if (!res.ok) {
-    throw new Error(`Backend responded with ${res.status}`);
-  }
-  return res.json();
+  const response = await fetch(`${API_BASE_URL}/repo/${repositoryId}/push`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      message: commitPayload.message,
+      files: commitPayload.files.map(f => ({ path: f.relPath, content: f.content })),
+    }),
+  });
+  if (!response.ok) throw new Error(`Backend responded with ${response.status}`);
+  return response.json();
 };
 
 // push: sends every locally committed (not-yet-pushed) commit to the backend,

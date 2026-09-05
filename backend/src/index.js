@@ -3,13 +3,13 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import http from 'http';
-import {Server} from 'socket.io';
+import { Server } from 'socket.io';
 import dotenv from "dotenv";
 dotenv.config();
 
 
 import yargs from 'yargs';
-import {hideBin} from 'yargs/helpers';
+import { hideBin } from 'yargs/helpers';
 
 
 import { createRouteHandler } from "uploadthing/express";
@@ -32,8 +32,8 @@ const startServer = () => {
     const app = express();
     const port = process.env.PORT || 5000;
 
-    app.use(cors({origin: '*'}));
-    app.use(bodyParser.json({limit: '10mb'}));
+    app.use(cors({ origin: '*' }));
+    app.use(bodyParser.json({ limit: '10mb' }));
     app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
     app.use(express.json());
 
@@ -45,7 +45,8 @@ const startServer = () => {
         cors: {
             origin: ["https://github-clone-one-smoky.vercel.app/", "http://localhost:5173"],
             methods: ["GET", "POST"]
-        }}
+        }
+    }
     );
 
     io.on("connection", (socket) => {
@@ -59,7 +60,7 @@ const startServer = () => {
     })
 
     const db = mongoose.connection;
-    db.once('open', async() => {
+    db.once('open', async () => {
         console.log("CRUD operations called!");
     });
 
@@ -79,10 +80,15 @@ yargs(hideBin(process.argv))
         }
     )
     .command(
-        "init",
-        "Initialize a new repository",
-        {},
-        initRepo
+        "init [repositoryId]",
+        "Initialize a new repository, optionally linking it to a remote repositoryId",
+        (yargs) => {
+            yargs.positional('repositoryId', {
+                describe: 'Mongo _id of the repository on the server (optional)',
+                type: 'string'
+            });
+        },
+        (argv) => initRepo(argv.repositoryId ?? null)
     )
     .command(
         "add <file>",
@@ -111,55 +117,27 @@ yargs(hideBin(process.argv))
         }
     )
     .command(
-        "push <username> <repoName>",
-        "Push the committed changes",
-        (yargs) => {
-            yargs
-            .positional("username", {
-                describe: "Git username",
-                type: "string"
-            })
-            .positional("repoName", {
-                describe: "Repository name",
-                type: "string"
-            });
-        },
-        async (argv) => {
-            await connectDB();
-            pushRepo(argv.username, argv.repoName);
-        }
+        "push",
+        "Push locally committed changes for the repository linked in .gitGarden/config.json",
+        {},
+        () => pushRepo()
     )
     .command(
-        "pull <repoName>",
-        "Pull the latest changes",
-        (yargs) => {
-            yargs.positional('repoName', {
-                describe: "Repository name",
-                type: "string"
-            });
-        },
-        async (argv) => {
-            await connectDB();
-            pullRepo(argv.repoName);
-        }
+        "pull",
+        "Pull the latest changes for the repository linked in .gitGarden/config.json",
+        {},
+        () => pullRepo()
     )
     .command(
-        "revert <commitID> <reponame>",
+        "revert <commitID>",
         "Revert to a specific commit",
         (yargs) => {
             yargs.positional('commitID', {
                 describe: 'Commit ID to revert to',
                 type: 'string'
             });
-            yargs.positional('reponame', {
-                describe: 'Repository name',
-                type: 'string'
-            });
         },
-        async (argv) => {
-            await connectDB();
-            revertRepo(argv.commitID, argv.reponame);
-        }
+        (argv) => revertRepo(argv.commitID)
     )
     .demandCommand(1, 'You need at least one command!')
     .help().argv;

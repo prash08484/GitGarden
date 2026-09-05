@@ -11,9 +11,11 @@ import {
 } from '../controllers/repo.controller.js';
 import authenticate from '../middlewares/authe.middleware.js';
 import { authorizeRepositoryOwner } from '../middlewares/autho.middleware.js';
+import { pushSnapshot } from '../controllers/files.controller.js'; 
 
 const repoRouter = express.Router();
 
+repoRouter.post('/:id/push', authenticate, authorizeRepositoryOwner, pushSnapshot);
 repoRouter.post('/create', authenticate, createRepo);
 repoRouter.get('/allrepos', getAllRepos);
 repoRouter.get('/get/:userId', getRepo);
