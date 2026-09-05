@@ -10,6 +10,6 @@ AWS.config.update({
 });
 
 const s3 = new AWS.S3();
-const S3_BUCKET = "repodoc-bucket";
+const S3_BUCKET = "git-garden-bucket";
 
 export { s3, S3_BUCKET };

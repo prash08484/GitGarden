@@ -9,16 +9,18 @@ import {
     toggleVisById,
     deleteRepoById
 } from '../controllers/repo.controller.js';
+import authenticate from '../middlewares/authe.middleware.js';
+import { authorizeRepositoryOwner } from '../middlewares/autho.middleware.js';
 
 const repoRouter = express.Router();
 
-repoRouter.post('/create', createRepo);
+repoRouter.post('/create', authenticate, createRepo);
 repoRouter.get('/allrepos', getAllRepos);
 repoRouter.get('/get/:userId', getRepo);
 repoRouter.get('/name/:name', fetchRepoByName);
 repoRouter.get('/repoid/:id', fetchRepoById);
-repoRouter.patch('/toggleVis/:id', toggleVisById);
-repoRouter.put('/update/:id', updateRepoById);
-repoRouter.delete('/delete/:id', deleteRepoById);
+repoRouter.patch('/toggleVis/:id', authenticate, authorizeRepositoryOwner, toggleVisById);
+repoRouter.put('/update/:id', authenticate, authorizeRepositoryOwner, updateRepoById);
+repoRouter.delete('/delete/:id', authenticate, authorizeRepositoryOwner, deleteRepoById);
 
 export default repoRouter;

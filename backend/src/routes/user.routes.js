@@ -1,7 +1,7 @@
 import express from 'express';
 import { signup, login, getAllUsers, getUserProfile, updateUserProfile, deleteUserProfile, starRepository, unstarRepository, fetchStarRepos } from '../controllers/user.controller.js';
 import authenticate from '../middlewares/authe.middleware.js';
-import { authorizeSelf } from '../middlewares/autho.middleware.js';
+import { authorizeSelf, authorizeRepositoryExists } from '../middlewares/autho.middleware.js';
 
 const userRouter = express.Router();
 
@@ -10,8 +10,8 @@ userRouter.post('/signup', signup);
 userRouter.post('/login', login);
 userRouter.get('/userProfile/:id', getUserProfile);
 userRouter.get('/:id/starRepos', fetchStarRepos);
-userRouter.put('/starRepo/:repoid', starRepository);
-userRouter.put("/unstarRepo/:repoid", unstarRepository);
+userRouter.put('/starRepo/:repoid', authenticate, authorizeRepositoryExists, starRepository);
+userRouter.put("/unstarRepo/:repoid", authenticate, authorizeRepositoryExists, unstarRepository);
 userRouter.put('/updateProfile/:id', authenticate, authorizeSelf(), updateUserProfile);
 userRouter.delete('/deleteProfile/:id', authenticate, authorizeSelf(), deleteUserProfile);
 

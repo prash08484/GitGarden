@@ -2,7 +2,8 @@ import Repository from "../models/repo.model.js";
 import User from "../models/user.model.js";
 
 export const createRepo = async (req, res) => {
-  const { name, description, owner, visibility } = req.body;
+  const { name, description, visibility } = req.body;
+  const owner = req.user._id;
 
   try {
     const repository = await Repository.create({

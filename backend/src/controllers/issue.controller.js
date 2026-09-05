@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import Issue from "../models/issue.model.js";
 
 export const createIssue = async(req, res) => {
-  const { title, description, user } = req.body;
+  const { title, description } = req.body;
   const { id } = req.params;
 
   try {
@@ -10,7 +10,7 @@ export const createIssue = async(req, res) => {
       title,
       description,
       repository: id,
-      createdBy: user
+      createdBy: req.user._id
     });
 
     await issue.save();

@@ -240,7 +240,7 @@ export const deleteUserProfile = async (req, res) => {
 export const starRepository = async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(
-      req.body.userId,
+      req.user._id,
       { $addToSet: { starRepositories: req.params.repoid } },
       { new: true }
     );
@@ -259,7 +259,7 @@ export const starRepository = async (req, res) => {
 export const unstarRepository = async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(
-      req.body.userId,
+      req.user._id,
       { $pull: { starRepositories: req.params.repoid } },
       { new: true }
     );
