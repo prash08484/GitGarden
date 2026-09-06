@@ -1,0 +1,182 @@
+.cliTokensPage {
+  width: 100%;
+  max-width: 700px;
+  margin-inline: auto;
+  padding: 3rem 1rem 2rem;
+  color: var(--gh-text);
+}
+
+.cliTokensPage h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.cliTokensPage > p {
+  font-size: 14px;
+  color: var(--gh-muted);
+  margin-bottom: 1.75rem;
+  line-height: 1.5;
+}
+
+.cliTokensPage code {
+  background-color: var(--gh-panel);
+  border: 1px solid var(--gh-border);
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+  font-size: 13px;
+}
+
+/* Reveal banner shown once, right after a token is generated */
+.tokenReveal {
+  background-color: var(--gh-panel);
+  border: 1px solid var(--gh-green);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.tokenReveal strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 0.6rem;
+}
+
+.tokenReveal pre {
+  background-color: var(--gh-input);
+  border: 1px solid var(--gh-border);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  margin-bottom: 0.75rem;
+}
+
+/* Generate-token form: fields sit side by side on desktop, stack on mobile */
+.tokenForm {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+}
+
+.tokenForm input {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  background-color: var(--gh-input);
+  border: 1px solid var(--gh-border);
+  border-radius: 6px;
+  padding: 0.5rem 0.7rem;
+  color: var(--gh-text);
+}
+
+.tokenForm input:focus {
+  outline: none;
+  border-color: var(--gh-link);
+}
+
+/* Shared button base for this page */
+.cliTokensPage button {
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  border: 1px solid var(--gh-border);
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--gh-green);
+  border-color: var(--gh-green);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: var(--gh-green-hover);
+  border-color: var(--gh-green-hover);
+}
+
+.btn-secondary {
+  background-color: var(--gh-panel);
+  color: var(--gh-text);
+}
+
+.btn-secondary:hover {
+  border-color: var(--gh-muted);
+}
+
+.btn-danger {
+  background-color: transparent;
+  color: var(--gh-danger);
+  border-color: var(--gh-border);
+}
+
+.btn-danger:hover {
+  background-color: var(--gh-danger);
+  border-color: var(--gh-danger);
+  color: #fff;
+}
+
+/* Token list */
+.tokenList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.tokenRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: var(--gh-panel);
+  border: 1px solid var(--gh-border);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+}
+
+.tokenRow-info {
+  min-width: 0;
+}
+
+.tokenRow-label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 0.15rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tokenRow-meta {
+  font-size: 12px;
+  color: var(--gh-muted);
+}
+
+.tokenEmpty {
+  font-size: 13px;
+  color: var(--gh-muted);
+  border: 1px dashed var(--gh-border);
+  border-radius: 6px;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+@media (max-width: 520px) {
+  .tokenForm {
+    flex-direction: column;
+  }
+
+  .tokenRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .tokenRow button {
+    align-self: flex-end;
+  }
+}

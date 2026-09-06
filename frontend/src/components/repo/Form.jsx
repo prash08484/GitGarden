@@ -60,7 +60,10 @@ export default function CreateRepoForm() {
                 <div className="createRepoForm">
                     <h2 style={{ marginBottom: "0.8rem" }}>{createdRepo.name} created</h2>
                     <p>
-                        If you haven't already, log in once per machine:
+                        If you haven't already, generate a{" "}
+                        <a href="/settings/cli-tokens" target="_blank" rel="noopener noreferrer">
+                            CLI token
+                        </a>, then log in once per machine:
                     </p>
                     <pre style={{ userSelect: "all", padding: "0.75rem", background: "#1a1a1a", color: "#f5f5f5", borderRadius: "6px" }}>
                         git-garden login

@@ -70,6 +70,15 @@ function Navbar() {
                 <span>Issues</span>
               </Link>
             </li>
+            <li>
+              <Link className="dropdown-item" to="/settings/cli-tokens">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M14.5 2.75a.75.75 0 00-1.5 0V4.5H9a.75.75 0 000 1.5h4v1.75a.75.75 0 001.5 0V6h4a.75.75 0 000-1.5h-4V2.75z" className="icon-path" />
+                  <path fillRule="evenodd" clipRule="evenodd" d="M3.75 8A2.75 2.75 0 001 10.75v7.5A2.75 2.75 0 003.75 21h16.5A2.75 2.75 0 0023 18.25v-7.5A2.75 2.75 0 0020.25 8H3.75zM2.5 10.75c0-.69.56-1.25 1.25-1.25h16.5c.69 0 1.25.56 1.25 1.25v7.5c0 .69-.56 1.25-1.25 1.25H3.75c-.69 0-1.25-.56-1.25-1.25v-7.5z" className="icon-path" />
+                </svg>
+                <span>CLI Tokens</span>
+              </Link>
+            </li>
             <hr style={{ borderTop: "0.8px solid var(--gh-border)", opacity: "inherit", marginBlock: "6px" }} />
             <li>
               <button
