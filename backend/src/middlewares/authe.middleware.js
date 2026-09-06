@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import User from "../models/user.model.js";
+import CliToken from "../models/cliToken.model.js";
+import { hashCliToken, isCliToken } from "../utils/cliToken.js";
 
 const unauthorized = (res, message = "Authentication required") =>
   res.status(401).json({ message });
@@ -18,6 +20,27 @@ export const authenticate = async (req, res, next) => {
   }
 
   try {
+    // CLI personal access token path (used by push/pull/revert from the terminal)
+    if (isCliToken(token)) {
+      const cliToken = await CliToken.findOne({ tokenHash: hashCliToken(token) });
+      if (!cliToken) {
+        return unauthorized(res, "Invalid or revoked CLI token");
+      }
+
+      const user = await User.findById(cliToken.owner);
+      if (!user) {
+        return unauthorized(res, "User no longer exists");
+      }
+
+      cliToken.lastUsedAt = new Date();
+      await cliToken.save();
+
+      req.user = user;
+      req.authMethod = "cli-token";
+      return next();
+    }
+
+    // Browser session JWT path (used by the website)
     const payload = jwt.verify(token, process.env.JWT_SECRET_KEY);
     const userId = payload?.id;
 
@@ -34,6 +57,7 @@ export const authenticate = async (req, res, next) => {
     }
 
     req.user = user;
+    req.authMethod = "jwt";
     next();
   } catch (err) {
     if (

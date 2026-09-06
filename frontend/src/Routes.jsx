@@ -8,6 +8,7 @@ import Login from "./components/auth/Login.jsx";
 import Signup from "./components/auth/Signup.jsx";
 import Form from "./components/repo/Form.jsx";
 import Repo from "./components/repo/Repo.jsx";
+import CliTokens from "./components/user/CliTokens.jsx";
 
 
 const ProjectRoutes = () => {
@@ -61,6 +62,10 @@ const ProjectRoutes = () => {
         {
             path:"/repo/:id",
             element:<Repo/>
+        },
+        {
+            path:"/settings/cli-tokens",
+            element:<CliTokens/>
         }
     ]);
 
