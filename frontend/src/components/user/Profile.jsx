@@ -184,7 +184,8 @@ function Profile({ Pagetype = "none" }) {
       setPendingImage(null);
       toast.success("profile updated successfully!");
     } else {
-      toast.error("Can't change profile. check your password!");
+      const errBody = await res.json().catch(() => ({}));
+      toast.error(errBody.message || `Update failed (status ${res.status})`);
     }
   };
 

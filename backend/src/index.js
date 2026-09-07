@@ -40,7 +40,7 @@ const startServer = () => {
     app.use(express.json());
 
     app.use('/', mainRouter);
-    app.use("/api/uploadthing", createRouteHandler({ router: fileRouter, config: { secret: process.env.UPLOADTHING_SECRET_KEY }, }));
+    app.use("/api/uploadthing", createRouteHandler({ router: fileRouter }));
 
     const httpServer = http.createServer(app);
     const io = new Server(httpServer, {
