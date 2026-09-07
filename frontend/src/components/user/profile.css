@@ -228,11 +228,31 @@
   margin-bottom: 1.5rem;
 }
 
+.reposContainer .repos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.6rem;
+}
+
 .reposContainer .repos .col {
   border: 1px solid var(--gh-border);
-  padding: 10px 13px;
+  padding: 8px 10px;
   color: var(--gh-text);
   border-radius: 6px;
+  min-width: 0;
+  flex: 1 1 100%;
+}
+
+@media (min-width: 768px) {
+  .reposContainer .repos .col {
+    flex: 0 1 calc(50% - 0.3rem);
+  }
+}
+
+.reposContainer .repos .col h4,
+.reposContainer .repos .col p {
+  overflow-wrap: anywhere;
 }
 
 .reposContainer .repos .col a {
