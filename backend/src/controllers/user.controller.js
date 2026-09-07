@@ -237,6 +237,43 @@ export const deleteUserProfile = async (req, res) => {
   }
 };
 
+export const followUser = async (req, res) => {
+  try {
+    const targetId = req.params.id;
+
+    if (targetId === req.user._id.toString()) {
+      return res.status(400).json({ message: "You can't follow yourself." });
+    }
+
+    const targetUser = await User.findById(targetId);
+    if (!targetUser) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    await User.findByIdAndUpdate(req.user._id, { $addToSet: { followedUsers: targetId } });
+    await User.findByIdAndUpdate(targetId, { $addToSet: { followers: req.user._id } });
+
+    res.status(200).json({ message: "Followed successfully!" });
+  } catch (err) {
+    console.error("Error following user:", err.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const unfollowUser = async (req, res) => {
+  try {
+    const targetId = req.params.id;
+
+    await User.findByIdAndUpdate(req.user._id, { $pull: { followedUsers: targetId } });
+    await User.findByIdAndUpdate(targetId, { $pull: { followers: req.user._id } });
+
+    res.status(200).json({ message: "Unfollowed successfully!" });
+  } catch (err) {
+    console.error("Error unfollowing user:", err.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 export const starRepository = async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(

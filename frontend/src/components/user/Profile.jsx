@@ -189,6 +189,23 @@ function Profile({ Pagetype = "none" }) {
     }
   };
 
+  const isFollowing = userDetails.followers?.includes(currUser);
+
+  const handleFollowToggle = async () => {
+    const endpoint = isFollowing ? "unfollow" : "follow";
+    const res = await fetch(`${url}/user/${endpoint}/${id}`, {
+      method: "PUT",
+      headers: authHeaders(),
+    });
+
+    if (res.ok) {
+      fetchUserDetails();
+    } else {
+      const errBody = await res.json().catch(() => ({}));
+      toast.error(errBody.message || "Couldn't update follow status.");
+    }
+  };
+
   const handleEditProfileClick = () => {
     setShowEditModal(true);
   }
@@ -538,13 +555,15 @@ function Profile({ Pagetype = "none" }) {
           <div className="right-element">
 
             {currUser !== id ? (
-              <button className="follow-btn">Follow</button>
+              <button className="follow-btn" onClick={handleFollowToggle}>
+                {isFollowing ? "Following" : "Follow"}
+              </button>
             ) : (<></>)}
 
 
             <div className="follower">
-              <p>10 Follower</p>
-              <p>3 Following</p>
+              <p>{userDetails.followers?.length ?? 0} Follower{userDetails.followers?.length === 1 ? "" : "s"}</p>
+              <p>{userDetails.followedUsers?.length ?? 0} Following</p>
             </div>
             <div className="name2">
               <h3 className="text-center">{userDetails.username}</h3>
